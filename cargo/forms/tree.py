@@ -15,7 +15,7 @@ class TreeInput(forms.SelectMultiple):
 
     def render_tree(self, name):
 
-        html = '<div id="id_%s_tree_root"><select>' % name
+        html = '<div id="id_%s_tree_root" class="cargo-tree-input"><select>' % name
         html += "<option>--- Choississez une option ---</option>"
         for element in self.tree.values():
             html += "<option value="+str(element.pk)+">"+element.title+"</option>"
@@ -70,7 +70,7 @@ class TreeInput(forms.SelectMultiple):
             %(tree)s
             <script>
 
-                function cargo_tree_has_changed(value)
+                $('#id_%(name)s')[0].cargo_tree_has_changed = function(value)
                 {
                     var option = $('#id_%(name)s_tree_root option[value="'+value+'"]');
                     option.prop('selected', true)
@@ -84,7 +84,7 @@ class TreeInput(forms.SelectMultiple):
 
                 $('#id_%(name)s_tree_root').on('change', 'select', function(values)
                 {
-                    cargo_tree_has_changed($(this).val());
+                    $('#id_%(name)s')[0].cargo_tree_has_changed($(this).val());
 
                     values = [];
                     $('#id_%(name)s_tree_root select:visible').each(function()
@@ -92,12 +92,13 @@ class TreeInput(forms.SelectMultiple):
                         values.push($(this).val());
                     });
                     $('#id_%(name)s').val(values);
+                    console.log(values, $('#id_%(name)s_tree_root'))
                 });
                 var values = $('#id_%(name)s').val()
-                console.log(values);
+
                 for(var i in values)
                 {
-                    cargo_tree_has_changed(values[i]);
+                    $('#id_%(name)s')[0].cargo_tree_has_changed(values[i]);
                 }
             </script>
         """

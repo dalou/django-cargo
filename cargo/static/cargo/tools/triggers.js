@@ -120,7 +120,11 @@ $(document).ready(function(menuTo, select)
                     }).on('click', '.yes', function()
                     {
                         $.magnificPopup.close();
-                        self.click();
+                        if(self.attr('href'))
+                        {
+                            document.location.href = self.attr('href');
+                        }
+                        else self.click();
                     })
                 },
             },
