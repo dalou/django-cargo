@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from email.utils import parseaddr
+
 import functools
 try:
     from urllib.parse import urlparse, urlunparse
@@ -10,13 +10,8 @@ from django.core import urlresolvers
 from django.core.exceptions import SuspiciousOperation
 from django.http import HttpResponseRedirect, QueryDict
 from django.contrib.auth import get_user_model
+from .email import is_valid_email
 
-def is_valid_email(email):
-    result = parseaddr(email.strip())
-    if '@' in result[1]:
-        return result[1]
-    else:
-        return None
 
 def get_or_create_user(email, username=None, first_name=None, last_name=None,
                         is_active=False, expiration_date=None, set_names_from_email=False,

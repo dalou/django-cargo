@@ -1,6 +1,7 @@
 try:
     default_app_config = 'cargo.DefaultConfig'
 
+    import email as original_email
     from django.apps import AppConfig
 
     class DefaultConfig(AppConfig):

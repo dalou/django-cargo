@@ -4,7 +4,7 @@ from django.core.mail.backends.base import BaseEmailBackend
 from django.core.mail.message import sanitize_address, DEFAULT_ATTACHMENT_MIME_TYPE
 from django.core.mail.backends.smtp import EmailBackend
 
-from .models import *
+from ..models import *
 
 class DevBackend(EmailBackend):
 

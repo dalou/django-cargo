@@ -26,7 +26,6 @@ from django.core.mail import get_connection, EmailMultiAlternatives
 from django.contrib.auth import get_user_model
 from premailer import transform
 
-from .models import *
 
 def is_valid_email(email):
     result = parseaddr(email.strip())

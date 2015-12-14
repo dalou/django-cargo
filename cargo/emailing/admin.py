@@ -7,7 +7,7 @@ from django import forms
 from django.shortcuts import render_to_response, redirect
 
 
-from .models import *
+from ..models import *
 
 class EmailingUserActivationTokenAdmin(admin.ModelAdmin):
     list_display = ('email', 'token', 'is_used', 'activation_date', 'expiration_date', 'created_date')

@@ -6,7 +6,7 @@ from django.contrib import auth, messages
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 
-from .models import *
+from ..models import *
 
 class Activate(generic.View):
 
