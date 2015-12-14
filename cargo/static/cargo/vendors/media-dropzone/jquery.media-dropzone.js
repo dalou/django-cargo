@@ -39,7 +39,6 @@ for(h=a.naturalWidth,g=a.naturalHeight,c=document.createElement("canvas"),c.widt
     {
         self = this;
         self.$elm = $elm;
-        console.log(self.$elm, self.$elm.data('media-dropzone'))
         self.options = $.extend(true, {
             uploadMultiple: false,
             maxFilesize : 5,
@@ -117,23 +116,26 @@ for(h=a.naturalWidth,g=a.naturalHeight,c=document.createElement("canvas"),c.widt
             // {
             //     self.ready_to_click = false;
             // });
-            self.$clickable.on('mousedown', function(e)
+            self.$clickable.on('mouseup', function(e)
             {
                 // if( self.ready_to_click )
                 // {
+                    window.test = $(self.dropzone.hiddenFileInput)
 
                     if(self.dropzone && self.dropzone.hiddenFileInput)
                     {
-                        self.dropzone.hiddenFileInput.click();
+                        console.log('mousedown', self.dropzone, $(self.dropzone.hiddenFileInput))
+                        $(self.dropzone.hiddenFileInput).click();
                     }
                     else if(self.files_input.length)
                     {
+                        console.log('mousedown file_inpout', self.dropzone, $(self.dropzone.hiddenFileInput))
                         self.files_input.eq(0).click();
                     }
                     e.stopPropagation();
                     return false;
                 // }
-            })
+            });
             // self.options.clickable = self.$elm.find('> *')
         }
 
@@ -187,7 +189,7 @@ for(h=a.naturalWidth,g=a.naturalHeight,c=document.createElement("canvas"),c.widt
                 , removedfile: function(file)
                 {
                     self.file = file;
-                    self.$elm.trigger('mediaDropzone.fileremoved', [self, file, dataUrl])
+                    self.$elm.trigger('mediaDropzone.fileremoved', [self, file])
                 }
                 , thumbnail : function(file, dataUrl)
                 {
