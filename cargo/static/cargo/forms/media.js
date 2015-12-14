@@ -17,7 +17,7 @@ $(document).ready(function() {
             //console.log('media deposed', media, file, embed)
             if(file)
             {
-                $(self).find('.cargo-media_input-preview').html('<img style="margin-bottom:15px;" class="img-responsive" src="'+file+'"/>').css({
+                $(self).find('.cargo-media_input-preview').html('<img class="img-responsive" src="'+file+'"/>').css({
                     backgroundImage: 'url(' + file + ')'
                 });
                 $(self).find('.cargo-media_input-media').addClass('active');
