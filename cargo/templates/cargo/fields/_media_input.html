@@ -43,14 +43,13 @@
     </span>-->
 
     <div class="cargo-media_input-modal">
-        <button type="button" class="btn btn5 large block cargo-media_input-add-image">
-            <span class="">
-                {% if not only_file %}
-                    <span class="appicon appicon-media"></span>{{ "Image"|safe }}
-                {% else %}
-                    <span class="appicon appicon-media"></span>{{ "Image"|safe }}
-                {% endif%}
-            </span>
+        <button type="button" class="btn btn3 cargo-media_input-add-image">
+
+            {% if not only_file %}
+                <span class="appicon appicon-media"></span>{{ "Image"|safe }}
+            {% else %}
+                <span class="appicon appicon-media"></span>{{ "Image"|safe }}
+            {% endif%}
         </button>
         {% if not only_file %}
         <!-- <br/> -->

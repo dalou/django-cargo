@@ -32,6 +32,7 @@ IMAGE_FIELD_DELIMITER = "?"
 class MediaFieldImage(FieldFile):
     type = 'image'
     is_image = True
+    is_embed = False
 
     def _get_html(self):
         if self.name and not self.type in self.field.authorized_types:
@@ -73,6 +74,7 @@ class MediaFieldImage(FieldFile):
 # Can be File
 class MediaFieldEmbed(object):
     is_embed = True
+    is_image = False
     _committed = False
 
     def __init__(self, instance, field, name, type="youtube"):
