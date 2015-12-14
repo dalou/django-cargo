@@ -1,0 +1,13 @@
+.cargo-media_input { display: inline-block; }
+.cargo-media_input-media { position: relative; text-align: center; display: inline-block; }
+.cargo-media_input-button { opacity:0; }
+.cargo-media_input-preview { display: inline-block; }
+.cargo-media_input-media:hover .cargo-media_input-button { opacity:1; }
+.cargo-media_input > span { display:none; }
+.cargo-media_input .active { display:block; }
+.cargo-media_input-change { margin: auto; }
+.cargo-media_input-remove { position:absolute; bottom:5px; left:5px; right:0px; margin: auto; }
+.cargo-media_input-modal {}
+.cargo-media_input-or { display: block; text-align:center; margin:10px 25px; }
+.cargo-media_input-add-image {  }
+.cargo-media_input-add-embed { min-height: 40px;  }
