@@ -76,7 +76,7 @@ class EmailingAdmin(admin.ModelAdmin):
     get_receivers.allow_tags = True
     get_receivers.short_description = u"Destinataires"
 
-    def get_changeform_initial_data(self, request):
+    def get_changeform_initial_data(self, request, object_id=None):
 
         receivers = []
         if request.session.get('cargo-emailing_receivers'):
@@ -86,12 +86,13 @@ class EmailingAdmin(admin.ModelAdmin):
             'sender': getattr(settings, 'DEFAULT_FROM_EMAIL', 'no-reply@exemple.fr'),
             'template': 'Template du mail (compatible mailchimp)',
             'receivers': receivers,
+            'object': Emailing.objects.get(pk=object_id) if object_id else None,
             'receivers_test': ", ".join(list(set(EmailingTestEmail.objects.all().values_list('email', flat=True))))
         }
 
     def change_view(self, request, object_id, form_url='', extra_context=None):
         extra_context = extra_context or {}
-        extra_context.update(self.get_changeform_initial_data(request))
+        extra_context.update(self.get_changeform_initial_data(request, object_id))
         return super(EmailingAdmin, self).change_view(request, object_id,
             form_url, extra_context=extra_context)
 

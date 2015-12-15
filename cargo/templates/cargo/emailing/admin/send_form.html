@@ -22,7 +22,10 @@
   <button type="submit" class="btn btn-high btn-info" name="_continue">Enregistrer</button>
   <button type="submit" name="_sendtest" class="btn">Enregistrer et envoyer un test</button>
   <button onclick="return confirm('Attention les envois de mails sont rééls, confirmer ?');" type="submit" name="_sendreal" class="btn btn-danger">
-      Enregistrer et envoyer !
+      Enregistrer et envoyer !<br/>
+      {% if object %}
+        Il reste {{ object.get_send_count_remind }} envois en attente
+      {% endif %}
   </button>
 
 
