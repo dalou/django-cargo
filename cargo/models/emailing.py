@@ -107,6 +107,9 @@ class Emailing(models.Model):
             (50,50),
             (70,70),
             (100,100),
+            (200,200),
+            (500,500),
+            (1000,1000),
         )
     )
     receivers = models.TextField(u"Vers (destinations réélles)", blank=True, null=True)
