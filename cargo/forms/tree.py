@@ -163,7 +163,7 @@ class TreeField(forms.ModelMultipleChoiceField):
                     validated = True
                     self.recursive_clean(value, choice)
             if not validated:
-                raise ValidationError(u"Séléctionnez une valeur---  pour %s" % element, code='required')
+                raise ValidationError(u"Séléctionnez une valeur pour %s" % element, code='required')
 
         if len(element._tree_selects.values()):
             for pk, select in element._tree_selects.items():
@@ -184,8 +184,15 @@ class TreeField(forms.ModelMultipleChoiceField):
 
 
         tree = self.widget.tree
+        validated = False
         for pk, element in tree.items():
             if str(pk) in value:
+                validated = True
                 self.recursive_clean(value, element)
+        if self.required and not validated:
+            raise ValidationError(u"Séléctionnez une valeur", code='required')
+        else:
+            return self.queryset.none()
+
         return qs
 
