@@ -17,8 +17,18 @@ $(document).ready(function()
 {
     window.cargo_packages_isotope_apply = function($elms)
     {
+        if(!$elms)
+        {
+            $elms = $('[data-isotopes]');
+        }
         $elms.each(function(i, self)
         {
+
+            if(self.cargo_isotope === true)
+            {
+                return;
+            }
+            self.cargo_isotope = true;
             var options = $.extend(
             {
                 itemSelector: '[data-isotope]',
@@ -37,5 +47,5 @@ $(document).ready(function()
             }
         });
     }
-    window.cargo_packages_isotope_apply($('[data-isotopes]'));
+    window.cargo_packages_isotope_apply();
 });

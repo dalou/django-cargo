@@ -57,6 +57,10 @@ $(document).ready(function()
         {
             $('[data-modal]').css({ cursor: 'pointer' });
         }
+        if(window.cargo_packages_isotope === true)
+        {
+            window.cargo_packages_isotope_apply();
+        }
         if(window.cargo_packages_select === true)
         {
             window.cargo_packages_select_apply();
