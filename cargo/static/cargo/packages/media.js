@@ -151,6 +151,7 @@ window.cargo_packages_media = true;
         //console.log(self.inputs)
         self.embed_input.on('keyup', function()
         {
+            console.log('KEYUP');
             self.paste_embed($(this).val());
         })
 

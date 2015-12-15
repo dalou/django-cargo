@@ -171,7 +171,7 @@ class Emailing(models.Model):
                         )
                     else:
                         created = True
-                    if irange <= self.send_range and (created or transaction.send_count == 0):
+                    if irange < self.send_range and (created or transaction.send_count == 0):
                         message = HtmlTemplateEmail(
                             subject=self.subject,
                             sender=self.sender,
