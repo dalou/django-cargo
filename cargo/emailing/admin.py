@@ -86,7 +86,7 @@ class EmailingAdmin(admin.ModelAdmin):
             'sender': getattr(settings, 'DEFAULT_FROM_EMAIL', 'no-reply@exemple.fr'),
             'template': 'Template du mail (compatible mailchimp)',
             'receivers': receivers,
-            'object': Emailing.objects.get(pk=object_id) if object_id else None,
+            'object': Emailing.objects.get(pk=int(object_id)) if object_id else None,
             'receivers_test': ", ".join(list(set(EmailingTestEmail.objects.all().values_list('email', flat=True))))
         }
 
