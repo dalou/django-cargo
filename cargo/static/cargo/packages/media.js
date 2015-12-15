@@ -52,7 +52,7 @@ window.cargo_packages_media = true;
 
         self.options = $.extend(true, {
             uploadMultiple: false,
-            maxFilesize : 5,
+            maxFilesize : 15,
             paramName: null,
             maxMedias : 1,
             clickable: true,

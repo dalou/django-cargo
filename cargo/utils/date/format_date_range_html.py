@@ -1,6 +1,10 @@
 # encoding: utf-8
 import datetime
 from django.utils.safestring import mark_safe
+from django.utils import formats
+from django.utils.dateformat import format
+from django.utils.text import force_text
+# from django.utils.timezone import localtime
 
 def format_date_range_html(
     start_date=None,
@@ -9,6 +13,8 @@ def format_date_range_html(
     end_hour=None,
     divider='<br/>'):
 
+    fdate = None
+
 
     if end_date and start_date:
         if  start_date.day == end_date.day and \
@@ -16,91 +22,131 @@ def format_date_range_html(
             start_date.year == end_date.year:
 
             if start_hour and end_hour:
-                return mark_safe(
-                    start_date.strftime("Le %A %d %B ") + divider + "de " + start_hour.strftime("%H:%M") + " à " + end_hour.strftime("%H:%M")
+                fdate = u"Le %s %s de %s à %s" % (
+                    format(start_date, "l d F"),
+                    divider,
+                    format(start_hour, "G\:i"),
+                    format(end_hour, "G\:i"),
                 )
             elif start_hour:
-                return mark_safe(
-                    start_date.strftime("Le %A %d %B ") + divider + "à partir de " + start_hour.strftime("%H:%M")
+                fdate = u"Le %s %s à partir de %s" % (
+                    format(start_date, "l d F"),
+                    divider,
+                    format(start_hour, "G\:i"),
                 )
             elif end_hour:
-                return mark_safe(
-                    start_date.strftime("Le %A %d %B ") + divider + "jusqu'à " + end_hour.strftime("%H:%M")
+                fdate = u"Le %s %s jusqu'à %s" % (
+                    format(start_date, "l d F"),
+                    divider,
+                    format(end_hour, "G\:i"),
                 )
             else:
-                return mark_safe(
-                    start_date.strftime("Le %A %d %B ") + divider + "toute la journée"
+                fdate = u"Le %s %s toute la journée" % (
+                    format(start_date, "l d F"),
+                    divider
                 )
-
 
         else:
             if start_hour and end_hour:
-                return mark_safe(
-                    start_date.strftime("Du %A %d %B ") + divider + "à " + start_hour.strftime("%H:%M") +
-                    divider + end_date.strftime("Jusqu'au %A %d %B ") + divider + "à " + end_hour.strftime("%H:%M")
+
+                fdate = u"Du %s %s à %s %s jusqu'au %s %s à %s" % (
+                    format(start_date, "l d F"),
+                    divider,
+                    format(start_hour, "G\:i"),
+                    divider,
+                    format(end_date, "l d F"),
+                    divider,
+                    format(end_hour, "G\:i"),
                 )
             elif start_hour:
-                return mark_safe(
-                    start_date.strftime("Du %A %d %B ") + divider + "à " + start_hour.strftime("%H:%M") +
-                    divider + end_date.strftime("Jusqu'au %A %d %B")
+                fdate = u"Du %s %s à %s %s jusqu'au %s" % (
+                    format(start_date, "l d F"),
+                    divider,
+                    format(start_hour, "G\:i"),
+                    divider,
+                    format(end_date, "l d F"),
                 )
             elif end_hour:
-                return mark_safe(
-                    start_date.strftime("Du %A %d %B") +
-                    divider + end_date.strftime("Jusqu'au %A %d %B  ") + divider + "à " + end_hour.strftime("%H:%M")
+                fdate = u"Du %s %s jusqu'au %s %s à %s " % (
+                    format(start_date, "l d F"),
+                    divider,
+                    format(end_date, "l d F"),
+                    divider,
+                    format(end_hour, "G\:i"),
                 )
             else:
-                return mark_safe(
-                    start_date.strftime("Du %A %d %B") +
-                    divider + end_date.strftime("Jusqu'au %A %d %B  ") + divider
+                fdate = u"Du %s %s jusqu'au %s" % (
+                    format(start_date, "l d F"),
+                    divider,
+                    format(end_date, "l d F"),
                 )
     elif start_date:
         if start_hour and end_hour:
-            return mark_safe(
-                start_date.strftime("À partir du  %A %d %B  ") + divider + "de " + start_hour.strftime("%H:%M") + " à " + end_hour.strftime("%H:%M")
+            fdate = u"À partir du %s %s de %s à %s" % (
+                format(start_date, "l d F"),
+                divider,
+                format(start_hour, "G\:i"),
+                format(end_hour, "G\:i"),
             )
         elif start_hour:
-            return mark_safe(
-                start_date.strftime("À partir du  %A %d %B  ") + divider + "à " + start_hour.strftime("%H:%M")
+            fdate = u"À partir du %s %s à %s" % (
+                format(start_date, "l d F"),
+                divider,
+                format(start_hour, "G\:i")
             )
         elif end_hour:
-            return mark_safe(
-                start_date.strftime("À partir du  %A %d %B ") + divider + "jusqu'à " + end_hour.strftime("%H:%M")
+            fdate = u"À partir du %s %s jusqu'à %s" % (
+                format(start_date, "l d F"),
+                divider,
+                format(end_hour, "G\:i"),
             )
         else:
-            return mark_safe(
-                start_date.strftime("À partir du %A %d %B")
+            fdate = u"À partir du %s" % (
+                format(start_date, "l d F")
             )
 
     elif end_date:
         if start_hour and end_hour:
-            return mark_safe(
-                end_date.strftime("Jusqu'au %A %d %B ") + divider + "de " + start_hour.strftime("%H:%M") + " à " + end_hour.strftime("%H:%M")
+            fdate = u"Jusqu'au %s %s de %s à %s" % (
+                format(end_date, "l d F"),
+                divider,
+                format(start_hour, "G\:i"),
+                format(end_hour, "G\:i"),
             )
         elif start_hour:
-            return mark_safe(
-                end_date.strftime("Jusqu'au %A %d %B ") + divider + "à partir de " + start_hour.strftime("%H:%M")
+            fdate = u"Jusqu'au %s %s à partir de %s" % (
+                format(end_date, "l d F"),
+                divider,
+                format(start_hour, "G\:i")
             )
         elif end_hour:
-            return mark_safe(
-                end_date.strftime("Jusqu'au %A %d %B ") + divider + "à " + end_hour.strftime("%H:%M")
+            fdate = u"Jusqu'au %s %s à %s" % (
+                format(end_date, "l d F"),
+                divider,
+                format(end_hour, "G\:i")
             )
         else:
-            return mark_safe(
-                start_date.strftime("Jusqu'au %A %d %B")
+            fdate = u"Jusqu'au %s" % (
+                format(end_date, "l d F")
             )
     else:
         if start_hour and end_hour:
-            return mark_safe(
-                "Aujourd'hui " + divider + start_hour.strftime("de %H:%M") + " à " + end_hour.strftime("%H:%M")
+            fdate = u"Aujourd'hui %s de %s à %s" % (
+                divider,
+                format(start_hour, "G\:i"),
+                format(end_hour, "G\:i"),
             )
         elif start_hour:
-            return mark_safe(
-                "Aujourd'hui " + divider + start_hour.strftime("à %H:%M")
+            fdate = u"Aujourd'hui %sà %s" % (
+                divider,
+                format(start_hour, "G\:i")
             )
         elif end_hour:
-            return mark_safe(
-                "Aujourd'hui " + divider + end_hour.strftime("jusqu'à %H:%M")
+            fdate = u"Aujourd'hui %s jusqu'à %s" % (
+                divider,
+                format(end_hour, "G\:i"),
             )
         else:
-            return None
+            fdate = None
+
+    return mark_safe(fdate) if fdate else None
