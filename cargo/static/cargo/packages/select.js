@@ -19,7 +19,7 @@ $(document).ready(function(select)
             }
             self.cargo_select = true;
             var classname = $(self).attr('class');
-            classname = classname ? classname.replace('form-control', '') : '';
+            classname = classname ? classname.replace('form-control', '').replace('select2-hidden-accessible', '') : '';
             $(self).select2($.extend(
             {
                 //tags: $(this).attr('id'),
