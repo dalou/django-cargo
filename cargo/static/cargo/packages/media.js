@@ -328,6 +328,8 @@ window.cargo_packages_media = true;
     {
         self = this;
 
+        console.log('PASTE EMBED');
+
         var embed_value = null;
 
         for(var type in EMBED_TYPES)
@@ -340,7 +342,6 @@ window.cargo_packages_media = true;
                 console.log(regex.exec(embed))
                 if(result)
                 {
-                    console.log(result[0], type, patterns[i][1], result);
 
                     if(
                         $.inArray('embed', self.options.authorizedTypes) ||
@@ -353,7 +354,6 @@ window.cargo_packages_media = true;
                     {
                         embed_value = null;
                     }
-                    console.log(embed_value);
                     break;
                 }
             }
@@ -363,7 +363,12 @@ window.cargo_packages_media = true;
         {
             if(self.options.uploadUrl)
             {
-                var data = [{ name: self.options.paramName, value: embed }];
+                var paramName = self.options.paramName;
+                if(self.options.uploadMultiple)
+                {
+                    paramName += '[0]'
+                }
+                var data = [{ name: paramName, value: embed }];
                 var params = self.options.extraParams
                 for(var i in params)
                 {
