@@ -42,7 +42,7 @@ class EmailingForm(forms.ModelForm):
 
     class Meta:
         model = Emailing
-        fields = ('send_count', 'test_count', 'sending_range', 'name', 'subject', 'sender', 'template', 'receivers', 'receivers_test',)
+        fields = ('send_count', 'test_count', 'send_range', 'name', 'subject', 'sender', 'template', 'receivers', 'receivers_test',)
 
 
     def __init__(self, *args, **kwargs):

@@ -98,9 +98,8 @@ class Emailing(models.Model):
     name = models.CharField(u"Nom", max_length=254)
     subject = models.CharField(u"Sujet du mail", max_length=254, blank=True, null=True)
     sender = models.CharField(u"De", max_length=254, blank=True, null=True)
-    sending_range = models.CharField(
+    send_range = models.IntegerField(
         u"Tranche d'envois maximum par session",
-        max_length=254,
         default=100,
         help_text=u"Les tranches d'envois permette de soulager le serveur d'envoi de masse.",
         choices=(
@@ -140,7 +139,7 @@ class Emailing(models.Model):
             receivers = receivers.split(',')
             messages = []
 
-            for receiver in receivers[0:self.sending_range]:
+            for receiver in receivers[0:self.send_range]:
                 receiver = receiver.strip()
                 if is_valid_email(receiver):
 

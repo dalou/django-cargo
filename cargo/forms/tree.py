@@ -189,8 +189,9 @@ class TreeField(forms.ModelMultipleChoiceField):
             if str(pk) in value:
                 validated = True
                 self.recursive_clean(value, element)
-        if self.required:
-            if not validated:
+
+        if not validated:
+            if self.required:
                 raise ValidationError(u"Séléctionnez une valeur", code='required')
             else:
                 return self.queryset.none()
