@@ -31,9 +31,9 @@ $(document).ready(function()
         self = $(this);
         if(window.cargo_packages_loading)
         {
-            self.imagesLoaded(function() {
+            //self.imagesLoaded(function() {
                 self.slick(self.data('slick'));
-            });
+            //});
         }
         else
         {
