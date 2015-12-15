@@ -63,12 +63,12 @@ class EmailingAdmin(admin.ModelAdmin):
     def get_receivers(self, obj):
         receivers = obj.receivers.split(',')
 
-        if obj.send_count >= len(receivers):
+        if obj.transactions.count() >= len(receivers):
             html = u"""<span style="color:green">"""
         else:
             html = u"""<span style="color:orange">"""
 
-        html += u"%s emails rééllement envoyés</span>" % obj.send_count
+        html += u"%s emails rééllement envoyés</span>" % obj.transactions.count()
         html += u"""<br />sur %s destinataires réels : %s [..]""" % ( len(receivers), ", ".join(receivers[0:10]))
 
 

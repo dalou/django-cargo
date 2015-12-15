@@ -123,7 +123,7 @@ class Emailing(models.Model):
 
     def get_send_count_remind(self):
         receivers = self.receivers.split(',')
-        return  max(0, len(receivers) - self.send_count)
+        return  max(0, len(receivers) - self.transactions.count())
 
     def __repr__(self):
         sent = ""
@@ -143,7 +143,9 @@ class Emailing(models.Model):
             receivers = receivers.split(',')
             messages = []
 
-            for receiver in receivers[0:self.send_range]:
+            irange = 0
+
+            for receiver in receivers:
                 receiver = receiver.strip()
                 if is_valid_email(receiver):
 
@@ -169,7 +171,7 @@ class Emailing(models.Model):
                         )
                     else:
                         created = True
-                    if created or transaction.send_count == 0:
+                    if irange <= self.send_range and (created or transaction.send_count == 0):
                         message = HtmlTemplateEmail(
                             subject=self.subject,
                             sender=self.sender,
@@ -181,6 +183,7 @@ class Emailing(models.Model):
                         if not test:
                             transaction.send_count += 1
                             transaction.save()
+                        irange += 1
 
             send_mass_email(messages)
             if test:
@@ -197,7 +200,7 @@ class EmailingTransaction(models.Model):
     created_date = models.DateTimeField(u"Créé le", auto_now_add=True)
     updated_date = models.DateTimeField(u"Modifié le", auto_now=True, db_index=True)
 
-    emailing = models.ForeignKey('cargo.Emailing')
+    emailing = models.ForeignKey('cargo.Emailing', related_name="transactions")
     receiver = models.EmailField(u"Adresse email", max_length=254)
     send_count = models.IntegerField(u"Compteur d'envois", default=0)
 
