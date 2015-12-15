@@ -121,9 +121,13 @@ class Emailing(models.Model):
         verbose_name_plural = u"Emails groupés"
         ordering = ('-created_date',)
 
+
+    def get_transaction_send_count(self):
+        return self.transactions.exclude(send_count=0).count()
+
     def get_send_count_remind(self):
         receivers = self.receivers.split(',')
-        return  max(0, len(receivers) - self.transactions.count())
+        return  max(0, len(receivers) - self.get_transaction_send_count())
 
     def __repr__(self):
         sent = ""
