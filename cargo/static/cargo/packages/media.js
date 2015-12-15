@@ -148,10 +148,10 @@ window.cargo_packages_media = true;
 
         //self.options.uploadMultiple = false;//self.options.maxMedias > 1;
 
-        //console.log(self.inputs)
+        console.log(self.embed_input)
         self.embed_input.on('keyup', function()
         {
-            console.log('KEYUP');
+            console.log('KEYUP', this);
             self.paste_embed($(this).val());
         })
 
@@ -329,6 +329,12 @@ window.cargo_packages_media = true;
     {
         self = this;
 
+        if(self.in_past_embed === true)
+        {
+            return;
+        }
+        self.in_past_embed = true;
+
         console.log('PASTE EMBED');
 
         var embed_value = null;
@@ -385,6 +391,7 @@ window.cargo_packages_media = true;
                     self.$elm.trigger('cargo.media_dropzone_embed_uploaded', [self, embed_value, data]);
                     self.$elm.trigger('cargo.media_dropzone_uploaded', [self, data]);
                     self.$elm.trigger('cargo.media_dropzone_deposed', [self, null, embed_value]);
+                    self.in_past_embed = false;
                 });
             }
             else
@@ -392,7 +399,12 @@ window.cargo_packages_media = true;
                 self.embed_input.attr('name', self.options.paramName).val(embed_value);
                 self.files_input.removeAttr('name');
                 self.$elm.trigger('cargo.media_dropzone_deposed', [self, null, embed_value]);
+                self.in_past_embed = false;
             }
+        }
+        else
+        {
+            self.in_past_embed = false;
         }
 
 
