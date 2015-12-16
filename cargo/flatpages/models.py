@@ -5,7 +5,7 @@ from django.utils.html import strip_tags
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 from cargo.fields import HTMLField
-from taggit_autosuggest.managers import TaggableManager as AutosuggestTaggableManager
+# from taggit_autosuggest.managers import TaggableManager as AutosuggestTaggableManager
 
 
 class FlatPagePosition(models.Model):
@@ -50,7 +50,7 @@ class FlatPage(models.Model):
 
     meta_title = models.CharField(u"Meta - Titre", max_length=254, blank=True, null=True)
     meta_description = models.CharField(u"Meta - Description", max_length=254, blank=True, null=True)
-    tags = AutosuggestTaggableManager(verbose_name="Tags", help_text=u"Séparez par une virgule ou utilisez la touche tabulation.", related_name="CARGO_flatpages", blank=True)
+    # tags = AutosuggestTaggableManager(verbose_name="Tags", help_text=u"Séparez par une virgule ou utilisez la touche tabulation.", related_name="CARGO_flatpages", blank=True)
 
     content = HTMLField(u"Contenu", blank=True)
     is_active = models.BooleanField(default=True, verbose_name=u"Activée ?")
