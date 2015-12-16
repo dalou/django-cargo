@@ -6,12 +6,12 @@ from django.utils.dateformat import format
 from django.utils.text import force_text
 # from django.utils.timezone import localtime
 
-def format_date_range_html(
+def format_date_range(
     start_date=None,
     end_date=None,
     start_hour=None,
     end_hour=None,
-    divider='<br/>'):
+    divider=' '):
 
     fdate = None
 
@@ -150,3 +150,9 @@ def format_date_range_html(
             fdate = None
 
     return mark_safe(fdate) if fdate else None
+
+
+def date_range_to_html(start_date=None, end_date=None, start_hour=None, end_hour=None, divider='<br/>'):
+    return format_date_range(start_date=start_date, end_date=end_date, start_hour=start_hour, end_hour=end_hour, divider=divider)
+
+
