@@ -44,14 +44,21 @@ $.fn.removeLoading = function()
 
 $(document).ready(function()
 {
-
+    $('[data-iframes-loading]').each(function(e, $self)
+    {
+        $self = $(this).addLoading();
+        $self.find('iframe').load(function()
+        {
+            $self.removeLoading();
+        })
+    });
     $('[data-images-loading]').each(function(e, $self)
     {
         $self = $(this).addLoading();
         $self.imagesLoaded(function()
         {
             $self.removeLoading();
-        })
+        });
     });
 
     $('[data-loading]').addLoading();

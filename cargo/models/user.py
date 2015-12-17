@@ -86,6 +86,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         full_name = '%s %s' % (self.first_name, self.last_name)
         return full_name.strip()
 
+    def get_username(self):
+        "Return the identifying username for this User"
+        return self.get_username_or_email()
+
     def get_username_or_email(self):
         return self.username if self.username else self.email.split('@')[0]
 

@@ -111,12 +111,22 @@ def formatted_price(value, currency='EUR'):
     return price
 
 @register.filter(name='formatted_price_html')
-def formatted_price_html(value, currency='EUR'):
+def formatted_price_html(value, currency='EUR', spacing=None):
+
+    currency_extra = currency.split(',')
+    currency = currency_extra[0]
+    if len(currency_extra) > 1:
+        spacing = currency_extra[1].strip()
+
     price = formatted_price(value, currency)
     if price:
         price = price.replace(u' €', u'<sup>€</sup>')
-        price = mark_safe(price)
-    return price
+        price = price
+
+    if spacing != None:
+        price = re.sub(r'[\s\xa0]', spacing, price)
+
+    return mark_safe(price)
 
 
 @register.filter(name='formatted_float')

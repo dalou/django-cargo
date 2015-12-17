@@ -24,6 +24,7 @@ class FlatPagePosition(models.Model):
 
     class Meta:
 
+        abstract = True
         verbose_name = u"Position d'un lien de page statique"
         verbose_name_plural = u"Positions des page statique"
         ordering = ('placement' ,'order_col', 'order',  )
@@ -59,6 +60,7 @@ class FlatPage(models.Model):
 
 
     class Meta:
+        abstract = True
         verbose_name = u"Page statique"
         verbose_name_plural = u"Pages statiques"
         ordering = ('title',  )
@@ -108,6 +110,7 @@ class FlatPage(models.Model):
 class FlatPageSettings(models.Model):
 
     class Meta:
+        abstract = True
         verbose_name = u"Paramètre"
         verbose_name_plural = u"Paramètres"
 

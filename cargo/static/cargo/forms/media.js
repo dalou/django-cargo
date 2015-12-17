@@ -5,14 +5,23 @@ $(document).ready(function() {
 
     $(document).on('mouseenter', '.cargo-media_input', function(self)
     {
-        if(this.cargo_media_input_active === true)
+        if(this.cargo_media_input === true)
         {
             return;
         }
-        this.cargo_media_input_active = true;
+        this.cargo_media_input = true;
         self = this;
 
-        $(this).mediaDropzone().on('mediaDropzone.deposed', function(e, media, file, embed)
+        $(this).on('click', '.cargo-media_input-clear', function(e)
+        {
+            console.log(self)
+            $(self).find('input[type=checkbox]').eq(0).prop('checked', true);
+            $(self).removeClass('image embed');
+            $(self).addClass('empty');
+            return false;
+        })
+
+        $(this).on('cargo.media_dropzone_deposed', function(e, media, file, embed)
         {
             //console.log('media deposed', media, file, embed)
             if(file)

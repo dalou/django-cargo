@@ -1,40 +1,57 @@
 
 
 
-<a class="cargo-media_input {% if only_file %}cargo-media_input-only_file{% endif %}"
+<div
+    class="cargo-media_input
+    {% if only_file %}cargo-media_input-only_file{% endif %}
+    {% if value %}active{% else %}empty{% endif %}
+    {% if value.is_image %}image{% endif %}
+    {% if value.is_embed %}embed{% endif %}
+    "
     id="div_{{ id }}"
 
     data-media-dropzone='{
-        "clickable": ".cargo-media_input-add-image",
+        "clickable": ".btn-wrapper"
     }'>
 
-    <span style="display:none;" id="div_{{ id }}_inputs">
+    <div style="display:none;" id="div_{{ id }}_inputs" class="cargo-media_input-inputs">
         {% if not required %}
             {{ clear }}
         {% endif %}
         <input class="cargo-media_input-file" {{ input_attrs|safe }} type="file" {% if value.is_image %}name="{{ name }}"{% endif %} accept="image/*" />
-        <textarea type="text" {{ input_attrs|safe }} {% if not value.is_embed %}name="{{ name }}"{% endif %}></textarea>
-    </span>
+        <textarea type="text" {{ input_attrs|safe }} {% if value.is_embed %}name="{{ name }}"{% endif %}></textarea>
+    </div>
 
-    <span class="cargo-media_input-media {% if value %}active{% endif %}">
+    <div class="cargo-media_input-media {% if value %}active{% endif %}">
 
         <span class="cargo-media_input-preview" {% if value.is_image %}style="background-image: url({{ value.url }});"{% endif %}>
             {% if value.is_image %}
-                <img src="{{ value.url }}" style="margin-bottom:15px;" class="img-responsive" />
+                <img src="{{ value.url }}" class="img-responsive" />
             {% else %}
                 {{ value.html|safe }}
             {% endif %}
         </span>
-       <!--  <button type="button" class="btn btn-primary cargo-media_input-button cargo-media_input-change">
-            {{ change_message|default:"Changer"|safe }}
-        </button>-->
-        <!-- <span class="appicon appicon-edit"></span> -->
-        <!-- {% if not required %}
-        <button type="button" class="btn btn-primary cargo-media_input-button cargo-media_input-remove">
-            {{ remove_message|default:"Changer"|safe }}
+        <span class="btn-wrapper">
+            <button type="button" class="btn btn3 cargo-media_input-button cargo-media_input-change">
+                <span class="appicon appicon-media"></span>
+                Changer
+            </button>
+        </span>
+
+        {% if not required %}
+        <button type="button" class="btn btn6 cargo-media_input-button cargo-media_input-clear">
+            <span class="appicon appicon-remove"></span>
         </button>
-        {% endif %} -->
-    </span>
+        {% endif %}
+
+
+        {% if not only_file %}
+        <!-- <br/> -->
+        <span class="cargo-media_input-or">ou</span>
+        <textarea class="form-control cargo-media_input-add-embed"
+            placeholder="Copiez collez une URL ou un code embed (youtube, dailymotion, soundcloud)"></textarea>
+        {% endif %}
+    </div>
     <!--<span class="cargo-media_input-empty cargo-media_input-change {% if not value %}active{% endif %}">
 
         <span class="appicon appicon-media"></span>
@@ -42,7 +59,7 @@
 
     </span>-->
 
-    <div class="cargo-media_input-modal">
+    <!--<div class="cargo-media_input-modal">
         <button type="button" class="btn btn3 cargo-media_input-add-image">
 
             {% if not only_file %}
@@ -51,11 +68,5 @@
                 <span class="appicon appicon-media"></span>{{ "Image"|safe }}
             {% endif%}
         </button>
-        {% if not only_file %}
-        <!-- <br/> -->
-        <span class="cargo-media_input-or">ou</span>
-        <textarea class="form-control cargo-media_input-add-embed"
-            placeholder="Copiez collez une URL ou un code embed (youtube, dailymotion, soundcloud)"></textarea>
-        {% endif %}
-    </div>
-</a>
+    </div>-->
+</div>

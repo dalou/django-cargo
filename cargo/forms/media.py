@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 
 EMBED_TYPES = {
     'youtube': [
-        (
+        [
             r'(https?://)?(www\.)?'
             '(youtube|youtu|youtube-nocookie)\.(com|be)/'
             '(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?\s"]{11})',
@@ -34,17 +34,23 @@ EMBED_TYPES = {
             '<iframe class="cargo-media" src="'
             'https://www.youtube.com/embed/\\6?controls=0&amp;showinfo=0"'
             'scrolling="no" frameborder="no" allowfullscreen></iframe>'
-        )
+        ]
     ],
     'soundcloud': [
-        (
+        [
             r'(http[s]?\:\/\/w\.soundcloud\.com\/player\/\?url=([^"]+))',
             '<iframe class="cargo-media" src="https://w.soundcloud.com/player/?url=\\2" scrolling="no" frameborder="no" allowfullscreen></iframe>'
-        ),
-        (
+        ],
+        [
             r'(http[s]?\:\/\/soundcloud\.com\/[\d\w\-_]+/[\d\w\-_]+)',
             '<iframe class="cargo-media" src="https://w.soundcloud.com/player/?url=\\1" scrolling="no" frameborder="no" allowfullscreen></iframe>'
-        )
+        ]
+    ],
+    'vimeo': [
+        [
+            r'(http[s]?\:\/\/(player\.)?vimeo\.com\/([\/\w]+)\/([\d]+))',
+            """<iframe class="cargo-media" src="https://player.vimeo.com/video/\\4" scrolling="no" frameborder="no" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>"""
+        ]
     ]
 }
 

@@ -22,6 +22,12 @@ window.cargo_packages_media = true;
                 "(https?://)?(www\\.)?(youtube|youtu|youtube-nocookie)\\.(com|be)/(watch\\?v=|embed/|v/|.+\\?v=)?([^&=%\\?\\s\"]{11})",
                 "<iframe class=\"cargo-media\" src=\"https://www.youtube.com/embed/\\6?controls=0&amp;showinfo=0\"scrolling=\"no\" frameborder=\"no\" allowfullscreen></iframe>"
             ]
+        ],
+        'vimeo': [
+            [
+                "(http[s]?\\:\\/\\/(player\\.)?vimeo\\.com\\/([\\/\\w]+)\\/([\\d]+))",
+                '<iframe class="cargo-media" src="https://player.vimeo.com/video/\\4" scrolling="no" frameborder="no" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
+            ]
         ]
     }
 
@@ -55,6 +61,7 @@ window.cargo_packages_media = true;
             maxFilesize : 15,
             paramName: null,
             maxMedias : 1,
+            parallelUploads: 20,
             clickable: true,
             authorizedTypes : ['image', 'embed'],
             addRemoveLinks : true,
@@ -224,6 +231,12 @@ window.cargo_packages_media = true;
 
             })
             self.dropzone = new Dropzone(self.$elm[0], dropzone_options);
+
+            if(self.dropzone && self.dropzone.hiddenFileInput && self.options.uploadMultiple === false)
+            {
+                $(self.dropzone.hiddenFileInput).prop('multiple', false)
+            }
+
         }
         // No file upload
         else

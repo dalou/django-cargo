@@ -6,7 +6,7 @@ $(document).ready(function(menuTo, select)
 {
     $(document).on('mouseover', '[data-tooltip]', function(content, options)
     {
-        if(!this.cargo_tooltip === true)
+        if(this.cargo_tooltip === true)
         {
             return
         }
