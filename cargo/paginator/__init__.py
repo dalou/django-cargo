@@ -196,7 +196,7 @@ class DiggPaginator(ExPaginator):
         except PageNotAnInteger:
             queryset = self.page(1)
         except EmptyPage:
-            queryset = self.page(paginator.num_pages)
+            queryset = self.page(self.num_pages)
         return queryset
 
     def page(self, number, *args, **kwargs):

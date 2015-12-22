@@ -31,3 +31,43 @@ class Tree(models.Model):
 
     def get_descendants(self, include_self=False):
         return self.children.all()
+
+
+    def set_children_list(self, queryset=None):
+        if hasattr(self, '_children_list'):
+            delattr(self, '_children_list')
+        return self.get_children_list(queryset=queryset)
+
+    def get_children_list(self, queryset=None):
+        if hasattr(self, '_children_list'):
+            return getattr(self, '_children_list')
+
+        if queryset:
+            categories = queryset
+        else:
+            categories = self.__class__.objects.all()
+
+        categories = categories.select_related('parent')
+
+        tree = {}
+        _children_list = []
+        for category in categories:
+            category._children_list = []
+            tree[category.pk] = category
+
+        for pk, element in tree.items():
+            if element.parent_id:
+                parent = tree.get(element.parent_id, element.parent)
+                # element.parent = parent
+                if parent:
+                    if not hasattr(parent, '_children_list'):
+                        setattr(parent, '_children_list', [])
+                    parent._children_list.append(element)
+
+        if tree.get(self.pk):
+            _children_list = tree.get(self.pk)._children_list
+        else:
+            _children_list = []
+
+        setattr(self, '_children_list', _children_list)
+        return self._children_list

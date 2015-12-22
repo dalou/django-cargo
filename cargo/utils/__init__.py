@@ -4,3 +4,4 @@ from .email import *
 from .url import *
 from .text import *
 from .file import *
+from .geo import *

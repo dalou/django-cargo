@@ -1,33 +1,35 @@
 window.cargo_packages_tabs = true;
 
-
-$(document).ready(function()
+$(document).on('click', '[data-tabs] [href]', function(self)
 {
-    $tabs = $('[data-tabs]').each(function($self)
+    self = $(this)
+    var href = self.attr('href');
+    if(href[0] == "#")
     {
-        $self = $(this);
-
-        $self.find('.tabs-tab').click(function(e) {
-            var href = $(this).attr('href');
-            var target = $(href)
-            target.parent().find('.tabs-content.active').removeClass('active');
-            $self.find('.tabs-tab.active').removeClass('active');
-            $(this).addClass('active');
+        var target = $(href);
+        if(target.length)
+        {
+            self.siblings("[href]").removeClass('active');
+            target.siblings("[id]").removeClass('active');
+            self.addClass('active');
             target.addClass('active');
+            self.trigger('cargo.tabs_changed', [ self, target ])
             return false;
-        });
-    });
+        }
+    }
+})
+// $(document).ready(function()
+// {
+//     // $(window).resize(function()
+//     // {
+//     //     $tabs.each(function($self, maxHeight) {
+//     //         $self = $(this);
+//     //         maxHeight = 0;
+//     //         $self.find('.tab').height('auto').each(function() {
+//     //             maxHeight = Math.max(maxHeight, $(this).height());
+//     //         }).height(maxHeight);
+//     //     })
+//     // });
+//     // $(window).resize();
 
-    $(window).resize(function()
-    {
-        $tabs.each(function($self, maxHeight) {
-            $self = $(this);
-            maxHeight = 0;
-            $self.find('.tab').height('auto').each(function() {
-                maxHeight = Math.max(maxHeight, $(this).height());
-            }).height(maxHeight);
-        })
-    });
-    $(window).resize();
-
-});
+// });

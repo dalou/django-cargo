@@ -61,6 +61,8 @@ setup(
         'django>=1.8.4,<=1.9',
         "jsonfield==1.0.3",
         "babel==1.3",
-        "premailer==2.9.6"
+        "premailer==2.9.6",
+        "watchdog==0.8.3",
+        "geopy==1.11.0"
     ],
 )

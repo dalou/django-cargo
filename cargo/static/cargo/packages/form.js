@@ -193,6 +193,8 @@ $(document).ready(function()
 
     if(window.cargo_packages_modal == true)
     {
+            console.log('OKKKK')
+
         $(document).on('submit', '[data-form-modal]', function(self, id)
         {
             self = $(this);

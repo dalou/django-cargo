@@ -272,7 +272,7 @@ class MediaDescriptor(object):
             type_value = value.split('|')
             if len(type_value) < 2:
                 value_type = 'image'
-                value = MediaFieldEmbed(instance, self.field, type_value[0])
+                value = MediaFieldImage(instance, self.field, type_value[0])
             else:
                 value_type = type_value[0]
                 if value_type in ['image']:

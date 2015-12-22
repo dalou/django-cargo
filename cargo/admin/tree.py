@@ -23,18 +23,22 @@ class TreeAdmin(admin.ModelAdmin):
     list_editable = ('is_required', 'is_independant', 'order', 'parent')
 
 
-
-    class Media:
+    @property
+    def media(self):
+        media = super(TreeAdmin, self).media
         css = {
-            'all': ['vendors/select2/4.0.0/css/select2.min.css']
+            "all": (
+                'vendors/select2/4.0.0/css/select2.min.css',
+            )
         }
-        js = (
+        js = [
             'vendors/select2/4.0.0/js/select2.min.js',
-            # 'vendors/jquery-ui-1.8.16.custom.min.js',
             'vendors/jquery.mjs.nestedSortable.js',
-            'libs/admin/categories.js',
-            #'catalogue/js/admin/category/save.js',
-        )
+            'cargo/admin/tree_change_list.js',
+        ]
+        media.add_css(css)
+        media.add_js(js)
+        return media
 
     def get_changelist_form(self, request, **kwargs):
         kwargs.setdefault('form', self.form)

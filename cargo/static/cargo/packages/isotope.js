@@ -13,6 +13,10 @@ c(d.prototype,b.prototype),d.prototype._getElementOffset=e,d.prototype.layout=f,
 
 window.cargo_packages_isotope = true;
 
+$.fn.cargoIsotope = function(a,b,c) {
+    this.isotope(a,b,c);
+}
+
 $(document).ready(function()
 {
     window.cargo_packages_isotope_apply = function($elms)
@@ -21,6 +25,7 @@ $(document).ready(function()
         {
             $elms = $('[data-isotopes]');
         }
+        console.log('isotopes', $elms)
         $elms.each(function(i, self)
         {
 

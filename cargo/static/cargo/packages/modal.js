@@ -83,12 +83,13 @@ $(document).ready(function(apply_packages_on_insert)
     {
         trigger = $(this);
         target = trigger.data('modal');
+        target_lower = target.toLowerCase();
         if(target[0] == '#')
         {
             type = 'inline';
             var cache = true;
         }
-        else if(target.endsWith('.png') || target.endsWith('.jpg') || target.endsWith('.gif'))
+        else if(target_lower.endsWith('.png') || target_lower.endsWith('.jpg') || target_lower.endsWith('.gif'))
         {
             type = 'image';
             var cache = true;

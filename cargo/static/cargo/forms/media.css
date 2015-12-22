@@ -16,11 +16,11 @@
     position: relative;
     text-align: center;
     display: block;
+    min-height:150px;
 }
 
 .cargo-media_input {
     position: relative;
-    min-height:150px;
 }
 
 .cargo-media_input .cargo-media_input-preview {
@@ -35,7 +35,6 @@
 
 .cargo-media_input .btn-wrapper {
     position: absolute;
-    min-height: 300px;
     display: block;
     -ms-transform: translateY(-50%) translateX(-50%);
     -moz-transform: translateY(-50%) translateX(-50%);

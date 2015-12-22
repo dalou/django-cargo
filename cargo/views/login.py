@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 from django import forms
+from django.conf import settings
 from django.views import generic
 from django.contrib import auth
 from django.utils.translation import ugettext_lazy as _
@@ -95,7 +96,7 @@ class Login(generic.FormView):
 
     def get_success_url(self, fallback_url=None, **kwargs):
         if fallback_url is None:
-            fallback_url = '/'
+            fallback_url = '/%s' % settings.PREFIX_URL if hasattr(settings, 'PREFIX_URL') else ""
         kwargs.setdefault("redirect_field_name", self.get_redirect_field_name())
         return default_redirect(self.request, fallback_url, **kwargs)
 
