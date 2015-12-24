@@ -25,7 +25,6 @@ $(document).ready(function()
         {
             $elms = $('[data-isotopes]');
         }
-        console.log('isotopes', $elms)
         $elms.each(function(i, self)
         {
 

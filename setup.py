@@ -63,6 +63,6 @@ setup(
         "babel==1.3",
         "premailer==2.9.6",
         "watchdog==0.8.3",
-        "geopy==1.11.0"
+        "geopy==1.11.0",
     ],
 )
