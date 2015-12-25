@@ -129,7 +129,7 @@ class Tree(models.Model):
         if self.parent:
             self.level = self.parent.level + 1
         super(Tree, self).save(*args, **kwargs)
-        if self.__class__.tree._tree_auto_rebuild:
+        if self.__class__._tree_auto_rebuild:
             self.__class__.tree.tree = None
             self.__class__.tree.trees = None
 
