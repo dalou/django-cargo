@@ -33,12 +33,13 @@ class TreeManager(models.Manager):
         else:
             return self.get_tree()
 
-    def get_filtered_selection(self, selection, root=None, include_level=1, exclude_parent=True, final_selection=None, **filters):
+    def get_filtered_selection(self, selection, root=None, include_level=-1, exclude_parent=True, final_selection=None, filter={}, exclude={}):
 
         if root:
             tree = root.get_children()
         else:
             tree = self.get_tree()
+
 
         print 'get_filtered_selection TREE', tree
         if selection is None:
@@ -65,13 +66,13 @@ class TreeManager(models.Manager):
                 if exclude_parent and child.parent_id and _final_selection.get(child.parent_id):
                     del _final_selection[child.parent_id]
 
-                self.get_filtered_selection(selection, root=child, include_level=include_level, exclude_parent=exclude_parent, final_selection=_final_selection, **filters)
+                self.get_filtered_selection(selection, root=child, include_level=include_level, exclude_parent=exclude_parent, final_selection=_final_selection, filter=filter, exclude=exclude)
 
         if include_level and root_empty:
             for child in tree:
                 _final_selection[child.pk] = child
                 if include_level >= 1 or include_level == -1:
-                    self.get_filtered_selection(selection, root=child, include_level=include_level-1, exclude_parent=exclude_parent, final_selection=_final_selection, **filters)
+                    self.get_filtered_selection(selection, root=child, include_level=include_level-1, exclude_parent=exclude_parent, final_selection=_final_selection, filter=filter, exclude=exclude)
 
         return _final_selection.keys()
 
@@ -114,6 +115,7 @@ class Tree(models.Model):
 
     _tree_default_queryset = None
     _tree_auto_rebuild = True
+    _tree_filters = {}
 
     objects = models.Manager()
     tree = TreeManager()

@@ -1,13 +1,14 @@
 $(document).ready(function(map, oldMarginTop)
 {
-    $(document).on('click', '.checkbox', function()
+    $(document).on('click', '.checkbox', function(e)
     {
         var $input = $(this).find('input');
         var checked = $input.is(':checked');
         $input.prop('checked', !checked);
         $(this)[checked ? 'removeClass':'addClass']('checked');
         $input.trigger('change');
-        //return false;
+        e.stopPropagation();
+        return false;
     });
     $.fn.check = function() {
         $(this).find('input').prop('checked', true);
