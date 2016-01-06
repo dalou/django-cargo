@@ -25,7 +25,7 @@ class UserAdmin(BaseUserAdmin):
 
 
     class Media:
-        js = ( settings.STATIC_URL + "user/js/admin.js", )
+        js = ( "user/js/admin.js", )
 
     #UserAdmin.list_display +
     list_display = (

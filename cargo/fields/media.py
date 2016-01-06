@@ -152,8 +152,17 @@ class MediaDescriptor(object):
                             value_type = type_name
                             value = MediaFieldImage(instance, self.field, result.group(0))
                 if not is_embed:
-                    value_type = 'image'
-                    value = MediaFieldImage(instance, self.field, type_value[0])
+
+                    if  type_value[0].lower().endswith('.png') or \
+                        type_value[0].lower().endswith('.jpg') or \
+                        type_value[0].lower().endswith('.jpeg') or \
+                        type_value[0].lower().endswith('.gif'):
+                        value_type = 'image'
+                        value = MediaFieldImage(instance, self.field, type_value[0])
+                    else:
+                        value_type = 'youtube'
+                        value = MediaFieldEmbed(instance, self.field, type_value[0], type=value_type)
+
             else:
                 value_type = type_value[0]
                 if value_type in ['image']:
