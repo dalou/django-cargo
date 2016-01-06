@@ -64,5 +64,6 @@ setup(
         "premailer==2.9.6",
         "watchdog==0.8.3",
         "geopy==1.11.0",
+        "django-mptt==0.8.0"
     ],
 )

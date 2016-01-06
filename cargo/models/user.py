@@ -43,7 +43,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.CharField(u'Email', unique=True, max_length=254, blank=True, null=True)
 
     avatar = MediaField(u"Photo de profil", blank=True, null=True,
-        upload_to=unique_filename("user/avatar/%Y/%m/", original_filename_field='image_filename'),
+        upload_to=unique_filename("user/avatar/%Y/%m/", original_filename_field='avatar_filename'),
         authorized_types=['image']
     )
     # avatar_cropped = CroppedImageField(image_field='avatar', blank=True, null=True, max_length=254)

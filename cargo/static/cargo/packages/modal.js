@@ -20,7 +20,7 @@ $(document).ready(function(apply_packages_on_insert)
         }
         if(window.cargo_packages_select === true)
         {
-            window.cargo_packages_select_apply($('[data-select]'));
+            window.cargo_packages_select_apply();
         }
         $(document).trigger('cargo.modal_after_insert', [inserted]);
     }

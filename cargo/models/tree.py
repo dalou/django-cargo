@@ -7,9 +7,10 @@ from django.utils import six
 
 from django import forms
 from itertools import chain
+from mptt.models import MPTTModel, TreeForeignKey
+from mptt.managers import TreeManager
 
-
-class TreeManager(models.Manager):
+class TreeManager(TreeManager):
     _tree = None
     _trees = {}
 
@@ -103,11 +104,11 @@ class TreeManager(models.Manager):
         print 'BUILD TREE'
 
 
-class Tree(models.Model):
+class Tree(MPTTModel):
 
     parent = models.ForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
     order = models.IntegerField(u"Ordre", default=0)
-    level = models.PositiveIntegerField(u"Profondeur", default=0)
+    # level = models.PositiveIntegerField(u"Profondeur", default=0)
 
     is_required = models.BooleanField(u"Requit ?", default=False)
     is_independant = models.BooleanField(u"Indépendant ?", default=False)
@@ -120,20 +121,23 @@ class Tree(models.Model):
     objects = models.Manager()
     tree = TreeManager()
 
+    # class MPTTMeta:
+    #     order_insertion_by = ['name']
+
     class Meta:
         abstract = True
-        ordering = ('-level', 'order', )
+        ordering = ('order', 'lft', 'tree_id')
         verbose_name = u'Catégorie'
         verbose_name_plural = u'Catégories'
 
 
     def save(self, *args, **kwargs):
-        if self.parent:
-            self.level = self.parent.level + 1
+        # if self.parent:
+        #     self.level = self.parent.level + 1
         super(Tree, self).save(*args, **kwargs)
-        if self.__class__._tree_auto_rebuild:
-            self.__class__.tree.tree = None
-            self.__class__.tree.trees = None
+        # if self.__class__._tree_auto_rebuild:
+        #     self.__class__.tree.tree = None
+        #     self.__class__.tree.trees = None
 
     def get_children(self, include_self=False):
         children = self.__class__.tree.get_children(self)
