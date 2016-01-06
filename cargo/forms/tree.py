@@ -10,6 +10,7 @@ from django.forms.utils import flatatt, to_current_timezone
 from django.utils.safestring import mark_safe
 from django.utils import six
 from itertools import chain
+from collections import OrderedDict
 
 class TreeModelChoiceIterator(forms.models.ModelChoiceIterator):
     def choice(self, obj):
@@ -39,6 +40,10 @@ class TreeSelect(forms.Select):
             if len(choice) < 3:
                 choice = choice + (None, 0, )
             tree[choice[0]] = choice
+
+        tree = OrderedDict(sorted(tree.items(), key=lambda t: t[1][3], reverse=True))
+
+        print tree
 
         for value, choice in tree.items():
             option_value, option_label, parent_id, level = choice
