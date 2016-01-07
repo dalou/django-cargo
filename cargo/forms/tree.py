@@ -41,12 +41,12 @@ class TreeSelect(forms.Select):
                 choice = choice + (None, 0, )
             tree[choice[0]] = choice
 
-        print
+        # print
 
         for value, choice in tree.items():
 
             option_value, option_label, parent_id, level = choice
-            print level, option_label
+            # print level, option_label
 
             if not parent_id:
                 parent_id = 0
