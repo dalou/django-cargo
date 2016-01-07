@@ -129,8 +129,11 @@ class MediaDescriptor(object):
 
         value = instance.__dict__[self.field.name]
 
-        print
-        print 'MediaDescriptor.__get__ : IN : ', self.field.name, value, type(value)
+        try:
+            print
+            print 'MediaDescriptor.__get__ : IN : ', self.field.name, value, type(value)
+        except:
+            pass
 
         if value in [None, False, '']:
             value = None

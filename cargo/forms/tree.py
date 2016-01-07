@@ -56,7 +56,7 @@ class TreeSelect(forms.Select):
                 select = """<div style="%s margin-left:%spx;" class="cargo-tree-select" data-tree-level="%s" data-tree-parent="%s"><select>""" % (
                     "display:none;" if parent_id else "",
                     level*50,
-                    level,
+                    level-1,
                     parent_id
                 )
             select += """<option value="%s" data-tree-parent="%s">%s</option>""" % (
@@ -128,6 +128,6 @@ class TreeModelChoiceField(forms.ModelChoiceField):
             return None
 
         if value and not value.is_leaf_node():
-            raise ValidationError(self.error_messages['list'], code='list')
+            raise ValidationError(u"Vous devez sélectionner une catégorie", code='list')
         else:
             return value
