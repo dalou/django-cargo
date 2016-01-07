@@ -41,25 +41,31 @@ class TreeSelect(forms.Select):
                 choice = choice + (None, 0, )
             tree[choice[0]] = choice
 
-        tree = OrderedDict(sorted(tree.items(), key=lambda t: t[1][3], reverse=True))
-
-        print tree
+        print
 
         for value, choice in tree.items():
+
             option_value, option_label, parent_id, level = choice
+            print level, option_label
 
             if not parent_id:
                 parent_id = 0
+                parent = tree.get(parent_id)
+                parent_level = 0
+            else:
+                parent = tree.get(parent_id)
+                parent_level = parent[3]
+
 
             select = selects.get(parent_id)
             if not select:
-                select = """<div style="%s margin-left:%spx;" class="cargo-tree-select" data-tree-level="%s" data-tree-parent="%s"><select>""" % (
+                select = [level, """<div style="%s margin-left:%spx;" class="cargo-tree-select" data-tree-level="%s" data-tree-parent="%s"><select>""" % (
                     "display:none;" if parent_id else "",
                     level*50,
-                    level-1,
+                    level,
                     parent_id
-                )
-            select += """<option value="%s" data-tree-parent="%s">%s</option>""" % (
+                )]
+            select[1] += """<option value="%s" data-tree-parent="%s">%s</option>""" % (
                 option_value,
                 parent_id,
                 option_label
@@ -67,20 +73,28 @@ class TreeSelect(forms.Select):
 
             selects[parent_id] = select
 
+        selects = OrderedDict(sorted(selects.items(), key=lambda t: t[0], reverse=False))
+
         for parent_id, select in selects.items():
-            output.append(select + "</select></div>")
+            output.append(select[1] + "</select></div>")
 
         output.append('</div>')
         output.append("""
             <script type="text/javascript">
                 $('#id_%(name)s')[0].cargo_tree_has_changed = function(value)
                 {
-                    console.log(value)
                     var option = $('#id_tree_%(name)s option[value="'+value+'"]');
-                    $('#id_tree_%(name)s [data-tree-parent="'+value+'"]').show();
+                    option.prop('selected', true);
 
+                    // Children default uncollapse
+                    var child = $('#id_tree_%(name)s [data-tree-parent="'+value+'"]').show().find('select');
+                    while(child.length)
+                    {
+                        var empty_value = child.val();
+                        child = $('#id_tree_%(name)s [data-tree-parent="'+empty_value+'"]').show().find('select');
+                    }
 
-                    option.prop('selected', true)
+                    // Parent selected uncollapse
                     var select = option.parent();
                     var parent_id = select.parent().show().data('tree-parent');
                     if(parent_id && parent_id != "0")

@@ -24,7 +24,7 @@
 
     <div class="cargo-media_input-media {% if value %}active{% endif %}">
 
-        <span class="cargo-media_input-preview" style="background-repeat: no-repeat;{% if value.is_image %}background-image: url({{ value.url }});{% endif %}">
+        <span class="cargo-media_input-preview" style="background-position: center center; background-repeat: no-repeat;{% if value.is_image %}background-image: url({{ value.url }});{% endif %}">
             {% if value.is_image %}
                 <img style="opacity:0;" src="{{ value.url }}" class="img-responsive" />
             {% else %}

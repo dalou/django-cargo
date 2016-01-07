@@ -76,7 +76,6 @@ $(document).ready(function()
             console.log(data)
             if(data.replace)
             {
-                console.log(data.replace, typeof data.replace)
                 if(typeof data.replace !== 'array' && typeof data.replace !== 'object')
                 {
                     var replaces = [data.replace]
@@ -85,7 +84,6 @@ $(document).ready(function()
                 {
                     var replaces =  data.replace
                 }
-                console.log(replaces, typeof replaces)
                 for(var i in replaces)
                 {
                     var html = $(replaces[i]);

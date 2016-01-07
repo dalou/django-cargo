@@ -11,7 +11,6 @@ def extract_urls(text):
     else:
         return []
 
-
 def urls_to_html(urls, reverse=True, target="_blank", hide_protocol=True, classname=None, divider="<br />"):
     urls = [
         u'<a %shref="%s" %s/>%s</a>' % (
@@ -32,11 +31,16 @@ def extract_urls_to_html(text, **kwargs):
 
 def replace_urls_to_href(text, target="_blank", hide_protocol=True):
 
-    # urls = re.compile(r"((https?):((//)|(\\\\))+[\w\d:#@%/;$()~_?\+-=\\\.&]*)", re.MULTILINE|re.UNICODE)
-    text = _url_regex_multiline.sub(r'<a href="\1" %s>\1</a>' % (
+    text = _url_regex_multiline.sub(r'<a href="http://\1" %s rel="nofollow">\1</a>' % (
         ('target="%s" ' % target) if target else ""
     ), text)
+    text = text.replace('http://http', 'http')
     # Replace email to mailto
     # urls = re.compile(r"([\w\-\.]+@(\w[\w\-]+\.)+[\w\-]+)", re.MULTILINE|re.UNICODE)
     # value = urls.sub(r'<a href="mailto:\1">\1</a>', value)
     return text
+
+# urlfinder = re.compile("([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}|((news|telnet|nttp|file|http|ftp|https)://)|(www|ftp)[-A-Za-z0-9]*\\.)[-A-Za-z0-9\\.]+):[0-9]*)?/[-A-Za-z0-9_\\$\\.\\+\\!\\*\\(\\),;:@&=\\?/~\\#\\%]*[^]'\\.}>\\),\\\"]")
+
+# def urlify2(value):
+#     return urlfinder.sub(r'<a href="\1">\1</a>', value)
