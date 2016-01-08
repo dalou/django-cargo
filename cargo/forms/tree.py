@@ -49,6 +49,8 @@ class TreeSelect(forms.Select):
                 choice = choice + (None, 0, )
             option_value, option_label, parent_id, level = choice
 
+            option_label = option_label.strip('-')
+
             if not parent_id:
                 parent_id = 0
 
