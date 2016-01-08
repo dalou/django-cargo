@@ -129,12 +129,6 @@ class MediaDescriptor(object):
 
         value = instance.__dict__[self.field.name]
 
-        try:
-            print
-            print 'MediaDescriptor.__get__ : IN : ', self.field.name, value, type(value)
-        except:
-            pass
-
         if value in [None, False, '']:
             value = None
 
@@ -153,7 +147,7 @@ class MediaDescriptor(object):
                         if result:
                             is_embed = True
                             value_type = type_name
-                            value = MediaFieldImage(instance, self.field, result.group(0))
+                            value = MediaFieldEmbed(instance, self.field, result.group(0), type=value_type)
                 if not is_embed:
 
                     if  type_value[0].lower().endswith('.png') or \
@@ -165,6 +159,8 @@ class MediaDescriptor(object):
                     else:
                         value_type = 'youtube'
                         value = MediaFieldEmbed(instance, self.field, type_value[0], type=value_type)
+                # value_type = 'youtube'
+                # value = MediaFieldEmbed(instance, self.field, type_value[0], type=value_type)
 
             else:
                 value_type = type_value[0]
