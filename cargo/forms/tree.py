@@ -36,26 +36,21 @@ class TreeSelect(forms.Select):
         selects = {}
         tree = {}
 
+
+        # for choice in chain(self.choices, choices):
+
+        #     if len(choice) < 3:
+        #         choice = choice + (None, 0, )
+        #     tree[choice[0]] = choice
+
         for choice in chain(self.choices, choices):
+
             if len(choice) < 3:
                 choice = choice + (None, 0, )
-            tree[choice[0]] = choice
-
-        # print
-
-        for value, choice in tree.items():
-
             option_value, option_label, parent_id, level = choice
-            # print level, option_label
 
             if not parent_id:
                 parent_id = 0
-                parent = tree.get(parent_id)
-                parent_level = 0
-            else:
-                parent = tree.get(parent_id)
-                parent_level = parent[3]
-
 
             select = selects.get(parent_id)
             if not select:

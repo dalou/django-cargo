@@ -126,7 +126,7 @@ class Tree(MPTTModel):
 
     class Meta:
         abstract = True
-        ordering = ('order', 'lft', 'tree_id')
+        ordering = ('tree_id', 'lft')
         verbose_name = u'Catégorie'
         verbose_name_plural = u'Catégories'
 
