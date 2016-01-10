@@ -42,8 +42,9 @@ $(document).ready(function()
 
             if(window.cargo_packages_loading === true)
             {
+                $(self).isotope(options)
                 $(self).imagesLoaded(function() {
-                    $(self).isotope(options)
+                    $(self).isotope('layout')
                 });
             }
             else {
