@@ -29,7 +29,7 @@ def get_or_create_user(email, username=None, first_name=None, last_name=None,
                     first_name = first_name.strip() if first_name else None,
                     last_name = last_name.strip() if last_name else None,
                     is_active = is_active,
-                    expiration_date = expiration_date
+                    # expiration_date = expiration_date
                 )
                 if password:
                     user.set_password(password)
