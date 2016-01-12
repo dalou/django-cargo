@@ -12,6 +12,7 @@ def extract_urls(text):
         return []
 
 def urls_to_html(urls, reverse=True, target="_blank", hide_protocol=True, classname=None, divider="<br />"):
+
     urls = [
         u'<a %shref="%s" %s/>%s</a>' % (
             ('target="%s" ' % target) if target else "",

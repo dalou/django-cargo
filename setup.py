@@ -58,12 +58,13 @@ setup(
     ],
     # test_suite='runtests.runtests',
     install_requires=[
-        'django>=1.8.4,<=1.9',
+        'django>=1.8.4,<=1.9.1',
         "jsonfield==1.0.3",
         "babel==1.3",
         "premailer==2.9.6",
         "watchdog==0.8.3",
         "geopy==1.11.0",
-        "django-mptt==0.8.0"
+        "django-mptt==0.8.0",
+        "python-gmaps==0.1.1"
     ],
 )

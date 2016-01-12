@@ -4,7 +4,54 @@ import six
 
 import django
 
-def get_tree_from_queryset(queryset, on_create_node=None, max_level=None):
+def get_filtered_selection_from_tree(tree, selection=[], include_level=-1, exclude_parent=True, final_selection=None, filter={}, exclude={}):
+
+    # print 'get_filtered_selection TREE', tree
+    if selection is None:
+        return []
+
+
+
+    if isinstance(selection, six.string_types):
+        selection = selection.split(',')
+
+    _selection = []
+    for s in selection:
+        s = str(s).strip()
+        if s != "":
+            _selection.append(int(s))
+
+
+    _final_selection = final_selection if final_selection else {}
+    root_empty = True
+
+    if isinstance(tree, list):
+        parent_id = None
+        children = tree
+
+    else:
+        parent_id = tree.get('id')
+        children = tree.get('children', [])
+
+    for child in children:
+        if child.get('id') in _selection:
+            _final_selection[child.get('id')] = child
+            root_empty = False
+
+            if exclude_parent and parent_id and _final_selection.get(parent_id):
+                del _final_selection[parent_id]
+
+            get_filtered_selection_from_tree(child, selection, include_level=include_level, exclude_parent=exclude_parent, final_selection=_final_selection, filter=filter, exclude=exclude)
+
+    if include_level and root_empty:
+        for child in tree.get('children', []):
+            _final_selection[child.get('id')] = child
+            if include_level >= 1 or include_level == -1:
+                get_filtered_selection_from_tree(child, selection, include_level=include_level-1, exclude_parent=exclude_parent, final_selection=_final_selection, filter=filter, exclude=exclude)
+
+    return _final_selection.keys()
+
+def get_tree_from_queryset(queryset, on_create_node=None, max_level=None, with_instance=False):
     """
     Return tree data that is suitable for jqTree.
     The queryset must be sorted by 'tree_id' and 'left' fields.
@@ -40,6 +87,8 @@ def get_tree_from_queryset(queryset, on_create_node=None, max_level=None):
             label=six.text_type(instance),
             id=serialize_id(pk)
         )
+        if with_instance:
+           node_info['instance'] = instance
         if on_create_node:
             on_create_node(instance, node_info)
 

@@ -17,11 +17,11 @@ from django.contrib.auth.models import AbstractUser, AbstractBaseUser, User as B
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from django.contrib.sites.models import Site
 
-from cargo.fields import JSONField, CroppedImageField, MediaField
+import cargo.fields
+import cargo.utils
 
 from sorl.thumbnail import get_thumbnail
 
-from libs.utils import random_token, canonical_url, unique_filename
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -42,12 +42,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(u'Téléphone', max_length=254, blank=True, null=True)
     email = models.CharField(u'Email', unique=True, max_length=254, blank=True, null=True)
 
-    avatar = MediaField(u"Photo de profil", blank=True, null=True,
-        upload_to=unique_filename("user/avatar/%Y/%m/", original_filename_field='avatar_filename'),
+    avatar = cargo.fields.MediaField(u"Photo de profil", blank=True, null=True,
+        upload_to=cargo.utils.unique_filename("user/avatar/%Y/%m/", original_filename_field='avatar_filename'),
         authorized_types=['image']
     )
-    # avatar_cropped = CroppedImageField(image_field='avatar', blank=True, null=True, max_length=254)
-
 
     is_staff = models.BooleanField(_('staff status'), default=False,
         help_text=_('Designates whether the user can log into this admin '

@@ -42,7 +42,7 @@ class TreeManager(TreeManager):
             tree = self.get_tree()
 
 
-        print 'get_filtered_selection TREE', tree
+        # print 'get_filtered_selection TREE', tree
         if selection is None:
             return []
 
@@ -55,7 +55,7 @@ class TreeManager(TreeManager):
             if s != "":
                 _selection.append(int(s))
 
-        print 'selection', tree, _selection
+        # print 'selection', tree, _selection
 
         _final_selection = final_selection if final_selection else {}
         root_empty = True
@@ -101,7 +101,7 @@ class TreeManager(TreeManager):
                 _tree.append(elm)
         self._tree_by_id = _tree_by_id
         self._tree = _tree
-        print 'BUILD TREE'
+        # print 'BUILD TREE'
 
 
 class Tree(MPTTModel):
