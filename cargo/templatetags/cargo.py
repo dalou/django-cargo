@@ -24,15 +24,20 @@ import json
 from oauth2client.client import SignedJwtAssertionCredentials
 
 @register.inclusion_tag('cargo/analytics/analytics.html', takes_context=True)
-def analytics(context, view_id, next = None):
+def analytics(context, view_id=None, next = None):
 
     # The scope for the OAuth2 request.
     SCOPE = 'https://www.googleapis.com/auth/analytics.readonly'
     token = ""
 
+
+
     ggsettings = GoogleAPISettings.objects.first()
 
     if ggsettings and ggsettings.account_key_file:
+
+        if not view_id:
+            view_id = ggsettings.analytics_default_view_id
 
         _key_data = json.load(ggsettings.account_key_file)
 
