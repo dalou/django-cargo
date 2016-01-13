@@ -25,6 +25,7 @@ def get_filtered_selection_from_tree(tree, selection=[], include_level=-1, exclu
     _final_selection = final_selection if final_selection else {}
     root_empty = True
 
+    print tree
     if isinstance(tree, list):
         parent_id = None
         children = tree
@@ -44,7 +45,7 @@ def get_filtered_selection_from_tree(tree, selection=[], include_level=-1, exclu
             get_filtered_selection_from_tree(child, selection, include_level=include_level, exclude_parent=exclude_parent, final_selection=_final_selection, filter=filter, exclude=exclude)
 
     if include_level and root_empty:
-        for child in tree.get('children', []):
+        for child in children:
             _final_selection[child.get('id')] = child
             if include_level >= 1 or include_level == -1:
                 get_filtered_selection_from_tree(child, selection, include_level=include_level-1, exclude_parent=exclude_parent, final_selection=_final_selection, filter=filter, exclude=exclude)
