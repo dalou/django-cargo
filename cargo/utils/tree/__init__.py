@@ -10,8 +10,6 @@ def get_filtered_selection_from_tree(tree, selection=[], include_level=-1, exclu
     if selection is None:
         return []
 
-
-
     if isinstance(selection, six.string_types):
         selection = selection.split(',')
 
@@ -25,7 +23,6 @@ def get_filtered_selection_from_tree(tree, selection=[], include_level=-1, exclu
     _final_selection = final_selection if final_selection else {}
     root_empty = True
 
-    print tree
     if isinstance(tree, list):
         parent_id = None
         children = tree

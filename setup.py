@@ -65,6 +65,7 @@ setup(
         "watchdog==0.8.3",
         "geopy==1.11.0",
         "django-mptt==0.8.0",
-        "python-gmaps==0.1.1"
+        "python-gmaps==0.1.1",
+        "google-api-python-client==1.4.2"
     ],
 )

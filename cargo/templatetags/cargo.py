@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 from .extended import *
+from .analytics import *
 
 # from django import template
 # from django.conf import settings
