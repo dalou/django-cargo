@@ -81,6 +81,12 @@ register = template.Library()
 #     global TEMPLATE_META_TITLE = value
 
 
+def _setup_metas_dict(parser):
+    try:
+        parser._metas
+    except AttributeError:
+        parser._metas = {}
+
 class DefineMetaNode(template.Node):
     def __init__(self, name, nodelist, args):
         self.name = name
@@ -88,19 +94,8 @@ class DefineMetaNode(template.Node):
         self.args = args
 
     def render(self, context):
-        request = context.get('request')
-        if not hasattr(request, '_metas'):
-            request._metas = {}
-        request._metas[self.name] = self
         ## empty string - {% meta %} tag does no output
         return ''
-
-
-def _setup_metas_dict(parser):
-    try:
-        parser._metas
-    except AttributeError:
-        parser._metas = {}
 
 @register.tag(name="meta")
 def do_meta(parser, token):
@@ -118,15 +113,15 @@ def do_meta(parser, token):
     nodelist = parser.parse(('endmeta', ))
     parser.delete_first_token()
 
+    print parser.__dict__
+
     ## Metadata of each macro are stored in a new attribute
     ## of 'parser' class. That way we can access it later
     ## in the template when processing 'usemacro' tags.
-    # _setup_metas_dict(parser)
-    # if not meta_name in parser._metas:
-    #     parser._metas[meta_name] = DefineMetaNode(meta_name, nodelist, args)
-
-    # print 'DO', meta_name, parser._metas[meta_name]
-    return DefineMetaNode(meta_name, nodelist, args)
+    _setup_metas_dict(parser)
+    if not meta_name in parser._metas:
+        parser._metas[meta_name] = DefineMetaNode(meta_name, nodelist, args)
+    return parser._metas[meta_name]
 
 class UseMetaNode(template.Node):
     def __init__(self, meta, filter_expressions, truncate=None):
@@ -137,13 +132,11 @@ class UseMetaNode(template.Node):
     def render(self, context):
         for (arg, fe) in [(self.args[i], self.filter_expressions[i]) for i in range(len(self.args))]:
             context[arg] = fe.resolve(context)
-
         return self.nodelist.render(context)
 
 class NoopNode(template.Node):
     def render(self, context):
         return ''
-
 
 @register.tag(name="usemeta")
 def do_usemeta(parser, token, truncate=None):
@@ -157,7 +150,6 @@ def do_usemeta(parser, token, truncate=None):
     except (AttributeError, KeyError):
         return NoopNode()
         raise template.TemplateSyntaxError, "Macro '%s' is not defined" % meta_name
-    print 'USE', parser._metas
 
     if (len(values) != len(meta.args)):
         raise template.TemplateSyntaxError, "Macro '%s' was declared with %d parameters and used with %d parameter" % (
@@ -175,12 +167,7 @@ def do_usemeta(parser, token, truncate=None):
 
 @register.inclusion_tag('cargo/metas/header.html', takes_context=True)
 def meta_headers(context):
-    request = context.get('request')
-    metas = request._metas if hasattr(request, '_metas') else {}
-    # print 'HEADERS', request._metas_cached
-    for name, meta in metas.items():
-        metas[name] = meta.nodelist.render(context)
-    return metas
+    return context
 
 
 
