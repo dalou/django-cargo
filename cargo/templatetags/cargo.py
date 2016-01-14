@@ -20,45 +20,6 @@ def digg_pagination(objects):
         'name_plural': u'Résultats',
     }
 
-import json
-from oauth2client.client import SignedJwtAssertionCredentials
-
-@register.inclusion_tag('cargo/analytics/analytics.html', takes_context=True)
-def analytics(context, view_id=None, next = None):
-
-    # The scope for the OAuth2 request.
-    SCOPE = 'https://www.googleapis.com/auth/analytics.readonly'
-    token = ""
-
-
-
-    ggsettings = GoogleAPISettings.objects.first()
-
-    if ggsettings and ggsettings.account_key_file:
-
-        if not view_id:
-            view_id = ggsettings.analytics_default_view_id
-
-        _key_data = json.load(ggsettings.account_key_file)
-
-        # Construct a credentials objects from the key data and OAuth2 scope.
-        try:
-            _credentials = SignedJwtAssertionCredentials(
-                _key_data['client_email'],
-                _key_data['private_key'],
-                SCOPE,
-                # token_uri='https://accounts.google.com/o/oauth2/token'
-            )
-            token = _credentials.get_access_token().access_token
-        except Exception, e:
-            print e.message
-            token = ""
-
-
-    return {
-        'token': token,
-        'view_id': view_id
-    }
 
 
 
@@ -74,7 +35,6 @@ from django.template import engines
 from django.conf import settings
 import re
 
-register = template.Library()
 
 # @register.simple_tag
 # def meta_title(value):
@@ -177,6 +137,45 @@ def meta_headers(context):
 
 
 
+import json
+from oauth2client.client import SignedJwtAssertionCredentials
+
+@register.inclusion_tag('cargo/analytics/analytics.html', takes_context=True)
+def analytics(context, view_id=None, next = None):
+
+    # The scope for the OAuth2 request.
+    SCOPE = 'https://www.googleapis.com/auth/analytics.readonly'
+    token = ""
+
+
+
+    ggsettings = GoogleAPISettings.objects.first()
+
+    if ggsettings and ggsettings.account_key_file:
+
+        if not view_id:
+            view_id = ggsettings.analytics_default_view_id
+
+        _key_data = json.load(ggsettings.account_key_file)
+
+        # Construct a credentials objects from the key data and OAuth2 scope.
+        try:
+            _credentials = SignedJwtAssertionCredentials(
+                _key_data['client_email'],
+                _key_data['private_key'],
+                SCOPE,
+                # token_uri='https://accounts.google.com/o/oauth2/token'
+            )
+            token = _credentials.get_access_token().access_token
+        except Exception, e:
+            print e.message
+            token = ""
+
+
+    return {
+        'token': token,
+        'view_id': view_id
+    }
 
 
 
