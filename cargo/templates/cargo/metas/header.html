@@ -1,0 +1,31 @@
+{% load cargo %}
+
+<!-- Global -->
+<title>{{ title }}</title>
+<meta name="description" content="{{ description|escape }}" />
+<meta name="keywords" content="{{ keywords|escape }}" />
+<link rel="image_src" href="{{ image }}" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="{{ site|escape }}">
+<meta name="twitter:creator" content="{{ creator|escape }}">
+<meta name="twitter:title" content="{{ title|escape }}">
+<meta name="twitter:description" content="{{ description|escape }}">
+<meta name="twitter:image" content="{{ image }}">
+<meta name="twitter:url" content="{{ url }}">
+<meta name="twitter:domain" content="{{ domain|escape }}">
+<meta name="twitter:app:id:iphone" content="">
+<meta name="twitter:app:id:googleplay" content="">
+<meta name="twitter:app:id:ipad" content="">
+<meta name="twitter:app:url:iphone" content="{{ app_iphone|escape }}">
+<meta name="twitter:app:url:googleplay" content="{{ app_googleplay|escape }}">
+<meta name="twitter:app:url:ipad" content="{{ app_ipad|escape }}">
+
+<!-- Facebook -->
+<meta property="og:title" content="{{ title|escape }}" />
+<meta property="og:type" content="{{ type|escape }}" />
+<meta property="og:description" content="{{ description|escape }}" />
+<meta property="og:image" content="{{ image|escape }}" />
+<meta property="og:url" content="{{ url|escape }}" />
+<meta property="og:site_name" content="{{ site|escape }}" />
