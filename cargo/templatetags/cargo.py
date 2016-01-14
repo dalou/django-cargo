@@ -113,8 +113,6 @@ def do_meta(parser, token):
     nodelist = parser.parse(('endmeta', ))
     parser.delete_first_token()
 
-    print parser.__dict__
-
     ## Metadata of each macro are stored in a new attribute
     ## of 'parser' class. That way we can access it later
     ## in the template when processing 'usemacro' tags.
