@@ -29,14 +29,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
 
     username = models.CharField(_('username'), blank=True, max_length=254,
-        help_text=_('Required. 30 characters or fewer. Letters, digits and '
-                    '@/./+/-/_ only.'),
-        validators=[
-            validators.RegexValidator(r'^[\w.@+-]+$',
-                                      _('Enter a valid username. '
-                                        'This value may contain only letters, numbers '
-                                        'and @/./+/-/_ characters.'), 'invalid'),
-        ])
+        # help_text=_('Required. 30 characters or fewer. Letters, digits and '
+        #             '@/./+/-/_ only.'),
+        # validators=[
+        #     validators.RegexValidator(r'^[\w.@+-]+$',
+        #                               _('Enter a valid username. '
+        #                                 'This value may contain only letters, numbers '
+        #                                 'and @/./+/-/_ characters.'), 'invalid'),
+        # ]
+    )
     first_name = models.CharField(_('first name'), max_length=254, blank=True, null=True)
     last_name = models.CharField(_('last name'), max_length=254, blank=True, null=True)
     phone_number = models.CharField(u'Téléphone', max_length=254, blank=True, null=True)

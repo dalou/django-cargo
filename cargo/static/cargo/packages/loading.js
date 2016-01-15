@@ -8,42 +8,43 @@
 
 window.cargo_packages_loading = true;
 
-$.fn.addLoading = function(text, b, c)
-{
-    return this.each(function(i, self)
-    {
-        if( self.cargo_loading !== true )
-        {
-            self.cargo_loading = true;
-            $loading = $("<span class='loading-text'></span>");
-            $(self).append($loading.hide()).addClass('loading');
-            $loading.fadeIn(300);
-        }
-        var new_text = text;
-        if(!new_text)
-        {
-            new_text = $(self).data('loading');
-        };
-        if(new_text)
-        {
-            $(self).find('.loading-text').text(new_text);
-        }
-    });
-}
-$.fn.removeLoading = function()
-{
-    return this.each(function(i, self)
-    {
-        $(self).removeClass('loading').find('.loading-text').fadeOut(250, function()
-        {
-            $(this).remove();
-        });
-        self.cargo_loading = null;
-    });
-}
+
 
 $(document).ready(function()
 {
+    $.fn.addLoading = function(text, b, c)
+    {
+        return this.each(function(i, self)
+        {
+            if( self.cargo_loading !== true )
+            {
+                self.cargo_loading = true;
+                $loading = $("<span class='loading-text'></span>");
+                $(self).append($loading.hide()).addClass('loading');
+                $loading.fadeIn(300);
+            }
+            var new_text = text;
+            if(!new_text)
+            {
+                new_text = $(self).data('loading');
+            };
+            if(new_text)
+            {
+                $(self).find('.loading-text').text(new_text);
+            }
+        });
+    }
+    $.fn.removeLoading = function()
+    {
+        return this.each(function(i, self)
+        {
+            $(self).removeClass('loading').find('.loading-text').fadeOut(250, function()
+            {
+                $(this).remove();
+            });
+            self.cargo_loading = null;
+        });
+    }
     $('[data-iframes-loading]').each(function(e, $self)
     {
         $self = $(this).addLoading();
