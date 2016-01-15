@@ -24,8 +24,8 @@ class PasswordResetForm(forms.Form):
 
 class PasswordReset(generic.FormView):
 
-    template_name = "account/password_reset.html"
-    template_name_sent = "account/password_reset_sent.html"
+    template_name = "user/password_reset.html"
+    template_name_sent = "user/password_reset_sent.html"
     form_class = PasswordResetForm
     token_generator = default_token_generator
 
