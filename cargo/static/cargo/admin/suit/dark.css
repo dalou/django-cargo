@@ -58,8 +58,8 @@
     right: 15px;
 }
 
-select.filtered {
-    min-height: 400px;
+select[multiple].filtered {
+    min-height: 400px !important;
 }
 
 .appicon:before {
