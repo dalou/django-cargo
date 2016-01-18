@@ -58,6 +58,10 @@
     right: 15px;
 }
 
+select.filtered {
+    min-height: 400px;
+}
+
 .appicon:before {
     position: relative;
     left: 1px;
