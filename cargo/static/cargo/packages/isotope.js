@@ -27,8 +27,7 @@ $(document).ready(function()
         }
         $elms.each(function(i, self)
         {
-
-            if(self.cargo_isotope === true)
+            if(self.cargo_isotope === true || !$.fn.isotope)
             {
                 return;
             }
@@ -39,6 +38,8 @@ $(document).ready(function()
                 layoutMode: 'fitRows',
             },
             $(self).data('isotopes'));
+
+
 
             if(window.cargo_packages_loading === true)
             {
