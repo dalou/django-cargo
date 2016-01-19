@@ -160,7 +160,7 @@ a:hover {
     background: #c5c5c5;
 }
 #suit_form_tabs {
-    border-bottom: 5px solid #2862a5;
+    border-bottom: 5px solid #6F86B3;
     margin: 25px 0 0 0;
 }
 #suit_form_tabs li {
@@ -181,12 +181,12 @@ a:hover {
     border-left-color: #000;
 }
 #suit_form_tabs li.active a {
-    background: #2862a5;
+    background: #6F86B3;
     color: #fff;
     text-shadow: none;
 }
 .tab-content {
-    border: 2px solid #2862a5;
+    border: 2px solid #6F86B3;
     background: #f6f7f8;
 }
 .tab-content input, .tab-content textarea, .tab-content .uneditable-input {
@@ -195,13 +195,15 @@ a:hover {
 .table thead th, .table thead td {
     font-weight: normal;
 }
-.table thead th a, .table thead td a {
-    color: #6F86B3;
-}
+.table thead th a, .table thead td a,
 .left-nav>ul>li ul li.active a {
     color: #6F86B3;
 }
 .table th a, .table td a {
     color: #45536D;
+}
 
+.btn-primary {
+
+    background-image: linear-gradient(to bottom, #6F86B3, #6F86B3);
 }
