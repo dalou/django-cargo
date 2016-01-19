@@ -12,7 +12,7 @@
     </script>
 
     <script type="text/javascript" src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="{% static 'cargo/vendors/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'cargo/packages/loading.js' %}"></script>
     <script type="text/javascript" src="{% static 'cargo/vendors/highcharts/highcharts.js' %}"></script>
     <script type="text/javascript" src="{% static 'cargo/vendors/highcharts/modules/exporting.js' %}"></script>
     <script type="text/javascript" src="{% static 'cargo/vendors/select2/select2.min.js' %}"></script>
@@ -29,7 +29,6 @@
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'cargo/vendors/select2/select2.min.css' %}" media="all">
-    <link rel="stylesheet" type="text/css" href="{% static 'cargo/admin/suit/dark.css' %}" media="all">
 {% endblock %}
 
 
@@ -38,9 +37,9 @@
       <!-- Header -->
       <div id="header" class="header">
         {% block branding %}
-        <div id="branding">
-          <a href="/"><span class="appicon appicon-logo"></span> admin</a>
-        </div>
+          <div id="branding">
+            <a href="/"><span class="appicon appicon-logo"></span> admin</a>
+          </div>
         {% endblock branding %}
 
         {% block header_time %}

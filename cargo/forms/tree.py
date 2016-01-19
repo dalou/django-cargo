@@ -107,7 +107,7 @@ class TreeSelect(forms.Select):
                     $('#id_%(name)s').val($('#id_tree_%(name)s select:visible').eq(-1).val());
                 });
 
-                $('#id_tree_%(name)s [data-tree-parent]').hide();
+                //$('#id_tree_%(name)s [data-tree-parent]').hide();
                 $('#id_%(name)s')[0].cargo_tree_has_changed($('#id_%(name)s').val());
             </script>
         """ % { 'name' : name })
