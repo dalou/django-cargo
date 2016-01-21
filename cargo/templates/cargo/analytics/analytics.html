@@ -21,14 +21,14 @@ fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
  <section class="panel">
  <h1>{% trans 'Traffic' %}</h1>
  <h2>{% trans 'Sessions et Utilisateurs, 15 derniers jours' %}</h2>
- <div id="chart-1-container"></div>
+ <div id="chart-1-container"  class="chart"></div>
  </section>
  </div>
  <div class="span6">
  <section class="panel">
  <h1>{% trans 'Populaire' %}</h1>
  <h2>{% trans 'Page vues, 15 derniers jours' %}</h2>
- <div id="chart-2-container"></div>
+ <div id="chart-2-container" class="chart"></div>
  </section>
  </div>
 </div>
@@ -37,14 +37,14 @@ fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
  <section class="panel">
  <h1>{% trans 'Navigateurs' %}</h1>
  <h2>{% trans '15 derniers jours' %}</h2>
- <div id="chart-3-container"></div>
+ <div id="chart-3-container" class="chart"></div>
  </section>
  </div>
  <div class="span6">
  <section class="panel">
  <h1>{% trans 'Acquisition' %}</h1>
  <h2>{% trans 'Referral Traffic, 15 derniers jours' %}</h2>
- <div id="chart-4-container"></div>
+ <div id="chart-4-container" class="chart"></div>
  </section>
  </div>
 </div>
@@ -53,14 +53,14 @@ fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
  <section class="panel">
  <h1>{% trans 'Audience' %}</h1>
  <h2>{% trans 'Pays, 15 derniers jours' %}</h2>
- <div id="chart-5-container"></div>
+ <div id="chart-5-container" class="chart"></div>
  </section>
  </div>
  <div class="span6">
  <section class="panel">
  <h1>{% trans 'Social' %}</h1>
  <h2>{% trans 'Interactions, 15 derniers jours' %}</h2>
- <div id="chart-6-container"></div>
+ <div id="chart-6-container" class="chart"></div>
  </section>
  </div>
 </div>
@@ -69,6 +69,7 @@ fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
 <script>
 
 gapi.analytics.ready(function() {
+
 
  /**
 * Authorize the user with an access token obtained server side.
@@ -128,7 +129,10 @@ chart: {
  });
 dataChart1.execute();
 
-
+// $(window).resize(function() {
+//     $('.panel .chart .gapi-analytics-data-chart > div > div').width('100%');
+//     dataChart1.draw()
+// })
  /**
 * Creates a new DataChart instance showing top 5 most popular pages
 */

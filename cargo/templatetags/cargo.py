@@ -154,7 +154,7 @@ def analytics(context, view_id=None, next = None):
     if ggsettings and ggsettings.account_key_file:
 
         if not view_id:
-            view_id = ggsettings.analytics_default_view_id
+            view_id = "%s" % int(ggsettings.analytics_default_view_id)
 
         _key_data = json.load(ggsettings.account_key_file)
 
@@ -163,7 +163,7 @@ def analytics(context, view_id=None, next = None):
             _credentials = SignedJwtAssertionCredentials(
                 _key_data['client_email'],
                 _key_data['private_key'],
-                SCOPE,
+                'https://www.googleapis.com/auth/analytics.readonly',
                 # token_uri='https://accounts.google.com/o/oauth2/token'
             )
             token = _credentials.get_access_token().access_token

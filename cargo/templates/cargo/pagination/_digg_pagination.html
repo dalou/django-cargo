@@ -12,7 +12,7 @@
             {% if objects.has_previous %}
                 <a class="page previous trigger"
                     data-page="{{ objects.previous_page_number }}"
-                    href="{% if request.GET %}{{ request.GET.urlencode }}&{% else %}?{% endif %}page={{ objects.previous_page_number }}">
+                    href="{% if request.path %}?{{ request.GET.urlencode }}&{% else %}?{% endif %}page={{ objects.previous_page_number }}">
                     <span class="appicon appicon-arrow-left"></span> page précédente
                 </a>
             {% endif %}
@@ -21,13 +21,13 @@
                 {% else %}
                     <a class="page {% if page == objects.number %}current{% else %}trigger{% endif %}"
                         data-page="{{ page }}"
-                        href="{% if request.GET %}{{ request.GET.urlencode }}&{% else %}?{% endif %}page={{ page }}">{{ page }}</a>
+                        href="{% if request.path %}?{{ request.GET.urlencode }}&{% else %}?{% endif %}page={{ page }}">{{ page }}</a>
                 {% endif %}
             {% endfor %}
             {% if objects.has_next %}
                 <a class="page next trigger"
                     data-page="{{ objects.next_page_number }}"
-                    href="{% if request.GET %}{{ request.GET.urlencode }}&{% else %}?{% endif %}page={{ objects.next_page_number }}">
+                    href="{% if request.path %}?{{ request.GET.urlencode }}&{% else %}?{% endif %}page={{ objects.next_page_number }}">
                      page suivante <span class="appicon appicon-arrow-right"></span>
 
                 </a>

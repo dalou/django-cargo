@@ -9,7 +9,7 @@ $(document).ready(function(select)
     {
         if(!$elms)
         {
-            $elms = $('[data-select], select');
+            $elms = $('[data-select]');
         }
         $elms.each(function(i, self)
         {
