@@ -11,21 +11,28 @@ fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
 <script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/active-users.js"></script>
 <script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/view-selector2.js"></script>
 
-
+<style>
+    .box {
+        overflow: hidden;
+    }
+    .box h1 {
+        margin:0px;
+    }
+</style>
 <h4 class="italic-title">Google Analytics <span class="btn btn-default" id="active-users-container"></span></h4>
 <!-- this is just to make the view selector work, no need to display it -->
 <div id="view-selector-container" style="display: none"></div>
 
 <div class="row-fluid" style="margin: 20px 0;">
  <div class="span6">
- <section class="panel">
+ <section class="panel box">
  <h1>{% trans 'Traffic' %}</h1>
  <h2>{% trans 'Sessions et Utilisateurs, 15 derniers jours' %}</h2>
  <div id="chart-1-container"  class="chart"></div>
  </section>
  </div>
  <div class="span6">
- <section class="panel">
+ <section class="panel box">
  <h1>{% trans 'Populaire' %}</h1>
  <h2>{% trans 'Page vues, 15 derniers jours' %}</h2>
  <div id="chart-2-container" class="chart"></div>
@@ -34,14 +41,14 @@ fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
 </div>
 <div class="row-fluid" style="margin: 20px 0;">
  <div class="span6">
- <section class="panel">
+ <section class="panel box">
  <h1>{% trans 'Navigateurs' %}</h1>
  <h2>{% trans '15 derniers jours' %}</h2>
  <div id="chart-3-container" class="chart"></div>
  </section>
  </div>
  <div class="span6">
- <section class="panel">
+ <section class="panel box">
  <h1>{% trans 'Acquisition' %}</h1>
  <h2>{% trans 'Referral Traffic, 15 derniers jours' %}</h2>
  <div id="chart-4-container" class="chart"></div>
@@ -50,14 +57,14 @@ fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
 </div>
 <div class="row-fluid" style="margin: 20px 0;">
  <div class="span6">
- <section class="panel">
+ <section class="panel box">
  <h1>{% trans 'Audience' %}</h1>
  <h2>{% trans 'Pays, 15 derniers jours' %}</h2>
  <div id="chart-5-container" class="chart"></div>
  </section>
  </div>
  <div class="span6">
- <section class="panel">
+ <section class="panel box">
  <h1>{% trans 'Social' %}</h1>
  <h2>{% trans 'Interactions, 15 derniers jours' %}</h2>
  <div id="chart-6-container" class="chart"></div>
