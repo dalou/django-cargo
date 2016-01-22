@@ -18,11 +18,28 @@ fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
     .box h1 {
         margin:0px;
     }
+    #active-users-container {
+        text-align:center;
+        display:block;
+    }
+    #active-users-container b {
+        display:block;
+        font-size:34px;
+        margin:15px;
+    }
+
 </style>
-<h4 class="italic-title">Google Analytics <span class="btn btn-default" id="active-users-container"></span></h4>
+
+<div class="row-fluid" style="margin: 0px 0;">
+     <div class="span3">
+         <div class="panel box">
+            <h4 class="italic-title"><span style="display:none;" id="active-users-container">sdfqsd</span> </h4>
+        </div>
+    </div>
+</div>
+
 <!-- this is just to make the view selector work, no need to display it -->
 <div id="view-selector-container" style="display: none"></div>
-
 <div class="row-fluid" style="margin: 20px 0;">
  <div class="span6">
  <section class="panel box">
@@ -93,16 +110,28 @@ gapi.analytics.auth.authorize({
 * five seconds.
 */
  var activeUsers = new gapi.analytics.ext.ActiveUsers({
-container: 'active-users-container',
-pollingInterval: 5
+    container: 'active-users-container',
+    pollingInterval: 5
  });
+ activeUsers.once('success', function() {
+    var activeUsers = $(this.container).find('b').text()
+
+    $(this.container).html('<b>'+activeUsers+'</b> utilisateurs actifs sur le site').show()
+
+    this.on('change', function(data)
+    {
+        console.log(data)
+        $(this.container).html('<b>'+ data.activeUsers+'</b> utilisateurs actifs sur le site')
+
+    });
+  });
 
  /**
 * Create a new ViewSelector2 instance to be rendered inside of an
 * element with the id "view-selector-container".
 */
  var viewSelector = new gapi.analytics.ext.ViewSelector2({
-container: 'view-selector-container',
+    container: 'view-selector-container',
  })
  .execute();
 
@@ -112,8 +141,8 @@ container: 'view-selector-container',
 */
 viewSelector.on('viewChange', function(data) {
  // Start tracking active users for this view.
-activeUsers.set(data).execute();
- });
+    activeUsers.set(data).execute();
+});
 
  /**
 * Creates a new DataChart instance showing sessions over the past 15 days.
