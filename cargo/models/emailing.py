@@ -114,7 +114,10 @@ class Emailing(models.Model):
     )
     receivers = models.TextField(u"Vers (destinations réélles)", blank=True, null=True)
     receivers_test = models.TextField(u"Vers (destination de test)", blank=True, null=True)
-    template = models.TextField(u"Template")
+    template = models.TextField(u"Template", help_text=u"""
+        Pour inserer un lien d'activation de compte utilisez : <b>*|ACTIVATE_URL|*</b>.<br />
+        exemple : <b>&lt;a href="*|ACTIVATE_URL|*"&gt;Cliquez ici pour votre connecter&lt;/a&gt;</b>
+    """)
     # template_name = models.TextField(u"Template name", blank=True, null=True)
     send_count = models.IntegerField(u"Compteur d'envois", default=0)
     test_count = models.IntegerField(u"Compteur de tests", default=0)

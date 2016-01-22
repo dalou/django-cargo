@@ -6,6 +6,7 @@ $(document).ready(function($textarea, $pre, source_editor, $preview, set_preview
     $textarea.val($('#id_template').val()).hide();
 
     var $parent = $('#id_template').parent()
+    $parent.prepend($parent.find('.help-inline'));
 
     source_editor = ace.edit("id_template");
     source_editor.setTheme("ace/theme/monokai");
@@ -27,18 +28,18 @@ $(document).ready(function($textarea, $pre, source_editor, $preview, set_preview
     $preview = $('<iframe noframeborder="on"></iframe>').css({ width:'100%', border:0 }).hide();
     $pre.before($preview);
 
-    $preview.before($('<a class="btn">Aperçu</a>').on('click', function()
+    $parent.prepend($('<a class="btn">Aperçu</a>').on('click', function()
     {
         $pre.hide();
         $preview.show();
         set_preview();
-    }))
-    $preview.before($('<a class="btn">Editer</a>').on('click', function()
+    }).css({margin: 5}))
+    $parent.prepend($('<a class="btn">Editer</a>').on('click', function()
     {
         $pre.show();
         $preview.hide();
         $(window).resize();
-    }))
+    }).css({margin: 5}))
 
     set_preview = function()
     {
