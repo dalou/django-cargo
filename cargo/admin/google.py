@@ -8,6 +8,8 @@ from django.db import models
 
 from ..models import *
 
-class GoogleAPISettingsAdmin(admin.ModelAdmin):
+from .unique import UniqueAdmin
+
+class GoogleAPISettingsAdmin(UniqueAdmin):
     pass
 admin.site.register(GoogleAPISettings, GoogleAPISettingsAdmin)

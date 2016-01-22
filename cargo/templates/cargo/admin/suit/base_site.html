@@ -109,10 +109,6 @@
           var $mainInfos = $('.main-infos');
           var $topInfos = $('.suit-include');
 
-          console.log($tabs)
-          console.log($mainInfos)
-
-
           $tabs.before($mainInfos).css({ marginTop: 25 })
           $tabs.before($topInfos)
 
@@ -134,10 +130,71 @@
           $(window).scroll();
 
 
-          $('p.file-upload > a').each(function() {
-            $(this).parent().append($('<img style="display:block;"/>').attr('src', $(this).attr('href')).css({
-              maxWidth: 300
-            }))
+          $(document).on('mouseenter', 'form input[type=file]', function()
+          {
+            if(!this.better_file_upload)
+            {
+                this.better_file_upload = true;
+
+                $(this).on("change", function(e)
+                {
+                    var files = this.files;
+                    var $image = $(this).nextAll('img').eq(0);
+                    if(!$image.length)
+                    {
+                        $image = $('<img />').attr('src', '').css(
+                        {
+                            width: '100%',
+                            maxWidth: 300
+                        });
+                        $(this).after('<br />').after($image);
+                    }
+                    if (!files || files.length == 0)
+                    {
+                        return false;
+                    }
+                    var file = files[0],
+                        imageType = /image.*/,
+                        fileIsImage = true;
+
+                    // check if this is an image
+                    if ( ! file.type.match(imageType)) {
+                        fileIsImage = false;
+                    }
+                    if ( !fileIsImage ) {
+
+                    } else {
+                        $image[0].file = file;
+                        var reader = new FileReader();
+                        reader.onload = (function(aImg){
+                            return function(e){
+                                aImg.src = e.target.result;
+                            };
+                        }($image[0]));
+
+                        var ret = reader.readAsDataURL(file),
+                            canvas = document.createElement("canvas");
+
+                        ctx = canvas.getContext("2d");
+                        $image[0].onload = function(){
+                            ctx.drawImage($image[0], 100, 100);
+                        }
+                    }
+                });
+
+            }
+        });
+
+
+          $('p.file-upload > a').each(function()
+          {
+                var src = $(this).attr('href');
+                if( src.toLowerCase().match(/\.(jpeg|jpg|gif|png)$/) != null )
+                {
+                    $(this).parent().append($('<img style="display:block;"/>').attr('src', src).css({
+                        maxWidth: 300
+                    }));
+                }
           });
 
 
